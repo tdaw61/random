@@ -1,0 +1,36 @@
+<<this is the turnin for Taylor Daw, Khaled Alsherif, and Steven Garcia.>>
+ var x=0, y=0, z=1 in
+	output "Enter positive number:";
+        x:= input num;
+        while (z <= x)
+        {
+                y:=z;
+                while (15<=y) { y := y - 15};
+                if (y = 0)
+                {
+                        output "fizzbuzz"
+                }
+                else
+                {
+                        y:=z;
+                        while (3<=y) { y := y - 3};
+                        if (y = 0)
+                        {
+                                output "fizz"
+                        }
+                        else
+                        {
+                                y:=z;
+                                while (5<=y) { y := y - 5};
+                                if (y = 0)
+                                {
+                                        output "buzz"
+                                }
+                                else
+                                {
+                                        output z       
+                                }       
+                        }
+                };
+        z:= z+1
+        } 

@@ -1,0 +1,547 @@
+%{
+	#include <stdio.h>
+	#include <stdlib.h>
+
+    	#include "ast.hpp"
+    	#include "primitive.hpp"
+    	#include "symtab.hpp"
+
+	#define YYDEBUG 1
+
+    	extern Program_ptr ast;
+	int yylex(void);
+	void yyerror(const char *);
+%}
+
+%error-verbose
+
+
+%start Program
+%token BOOLEAN
+%token ELSE
+%token IF
+%token WHILE
+%token INTEGER
+%token FOR
+%token VAR
+%token FUNCTION
+%token INTARRAY
+%token RETURN
+%token AND
+%token DIVIDE
+%token EQUAL
+%token SET
+%token GTE
+%token GT
+%token LTE
+%token LT
+%token MINUS
+%token NOTEQUAL
+%token NOT
+%token OR
+%token PLUS
+%token TIMES
+%token TRUE
+%token FALSE
+%token NUMBER
+%token BIN
+%token HEX
+%token OCT
+%token ZERO
+%token SEMICOLON
+%token COMMA
+%token COLON
+%token ABS
+%token OFUNC
+%token CFUNC
+%token OARRAY
+%token CARRAY
+%token OPAREN
+%token CPAREN
+%token IDENTIFIER
+
+
+
+%%
+
+			 
+/*
+ROOT:
+	| ROOT Program
+	{
+		//printf("success");
+		//exit(0);	
+	}
+	;
+*/
+
+Program : functions
+{
+    ast = new Program($1.u_func_list);
+    //printf("success");
+}
+functions: functions function
+	{
+    		$$.u_func_list = $1.u_func_list;
+	    	$$.u_func_list -> push_back($2.u_func);
+	}
+	| /*empty*/
+	{
+   		 $$.u_func_list = new list<Func_ptr > ();
+	}
+	;
+
+type:
+	BOOLEAN
+	{
+	    $$.u_type = new TBoolean();
+	}
+	| INTEGER
+	{
+	    $$.u_type = new TInteger();
+	}
+
+params:
+	params_
+	{
+    		$$ = $1;
+	}
+	|	
+	{
+	    $$.u_decl_list = new list<Decl_ptr > ();
+	}
+	;
+
+params_:
+	params_ SEMICOLON param
+	{
+	    $1.u_decl_list -> push_back($3.u_decl);
+	    $$ = $1;
+	}
+	| param
+	{
+	    $$.u_decl_list = new list<Decl_ptr > ();
+	    $$.u_decl_list -> push_back($1.u_decl);
+	}
+	;
+
+param:
+	var_list COLON type
+	{
+	    $$.u_decl = new Decl($3.u_type, $1.u_symname_list);
+	}
+	;
+
+var_list:
+	var_list COMMA IDENTIFIER
+	{
+	    $1.u_symname_list -> push_back(new SymName($3.u_base_charptr));
+	    $$ = $1;
+	}
+	| IDENTIFIER
+	{
+	    $$.u_symname_list = new list<SymName_ptr > ();
+	    $$.u_symname_list -> push_back(new SymName($1.u_base_charptr));
+	}
+	;
+
+function:
+	FUNCTION IDENTIFIER OPAREN params CPAREN COLON type OFUNC body_of_function CFUNC
+	{
+    		$$.u_func = new Func($7.u_type, new SymName($2.u_base_charptr), $4.u_decl_list, $9.u_function_block);
+	}
+	;
+
+body_of_function:
+	var_declaration function_declaration statements ReturnStatement
+	{
+    		$$.u_function_block =
+            new Function_block($1.u_decl_list,
+            $2.u_func_list,
+            $3.u_stat_list,
+            new Return($4.u_expr));
+	}
+	;
+
+ReturnStatement
+	: RETURN expression SEMICOLON
+	{
+    		$$.u_expr = $2.u_expr;
+	}
+	;
+
+var_declaration:
+	{
+    		$$.u_decl_list = new list<Decl_ptr > ();
+	}
+	| var_declaration VAR IDENTIFIER more COLON type SEMICOLON
+	{
+    		$4.u_symname_list -> push_back(new SymName($3.u_base_charptr));
+	    	$$.u_decl_list = $1.u_decl_list;
+		$$.u_decl_list -> push_back(new Decl($6.u_type, $4.u_symname_list));
+	}
+	| var_declaration VAR IDENTIFIER more COLON INTARRAY OARRAY NUMBER CARRAY SEMICOLON
+	{
+	    $4.u_symname_list -> push_back(new SymName($3.u_base_charptr));
+	    $$.u_decl_list = $1.u_decl_list;
+	    $$.u_decl_list -> push_back(new Decl(new TIntArray(new Primitive($8.u_base_int)), $4.u_symname_list));
+	}
+	;
+
+
+more:
+	more COMMA IDENTIFIER
+	{
+	    $$.u_symname_list = $1.u_symname_list;
+	    $$.u_symname_list -> push_back(new SymName($3.u_base_charptr));
+	}
+	|
+	{
+    		$$.u_symname_list = new list<SymName_ptr > ();
+	}
+	;
+
+function_declaration:
+	{
+	    $$.u_func_list = new list<Func_ptr > ();
+	}
+	| function_declaration function
+	{
+	    $$.u_func_list = $1.u_func_list;
+	    $$.u_func_list -> push_back($2.u_func);
+	}
+	;
+
+statements:
+	statements Statement
+	{
+	    $$.u_stat_list = $1.u_stat_list;
+	    $$.u_stat_list -> push_back($2.u_stat);
+	}
+	| 
+	{
+	    $$.u_stat_list = new list<Stat_ptr > ();
+	}
+	;
+
+Statement:
+	/*functioncall*/IDENTIFIER SET IDENTIFIER OPAREN exprlist CPAREN SEMICOLON
+	{
+    		$$.u_stat = new Call(new SymName($1.u_base_charptr), new SymName($3.u_base_charptr), $5.u_expr_list);
+	}
+	| /*functioncall*/IDENTIFIER OARRAY expression CARRAY SET IDENTIFIER OPAREN exprlist CPAREN SEMICOLON
+	{
+	    $$.u_stat = new ArrayCall(new SymName($1.u_base_charptr), $3.u_expr, new SymName($6.u_base_charptr), $8.u_expr_list);
+	}
+	| /*IF*/IF OPAREN expression CPAREN OFUNC statements CFUNC
+	{
+	    $$.u_stat = new IfNoElse($3.u_expr, new Nested_block($6.u_stat_list));
+	}
+	| /*IF*/IF OPAREN expression CPAREN OFUNC statements CFUNC ELSE OFUNC statements CFUNC
+	{
+	    $$.u_stat = new IfWithElse($3.u_expr, new Nested_block($6.u_stat_list), new Nested_block($10.u_stat_list));
+	}
+	| WHILE OPAREN expression CPAREN OFUNC statements CFUNC
+	{
+	    $$.u_stat = new WhileLoop($3.u_expr, new Nested_block($6.u_stat_list));
+	}
+	| /*assignment*/ IDENTIFIER SET expression SEMICOLON
+	{
+	    $$.u_stat = new Assignment(new SymName($1.u_base_charptr), $3.u_expr);
+	}
+	| /*assignment*/ IDENTIFIER OARRAY expression CARRAY SET expression SEMICOLON
+	{
+	    $$.u_stat = new ArrayAssignment(new SymName($1.u_base_charptr), $3.u_expr, $6.u_expr);
+	}
+	;
+
+exprlist:
+	{
+	    $$.u_expr_list = new list<Expr_ptr > ();
+	}
+	| expression moreexprlist
+	{
+	    $$.u_expr_list = $2.u_expr_list;
+	    $$.u_expr_list -> push_back($1.u_expr);
+	}
+	;
+
+moreexprlist:
+	{
+	    $$.u_expr_list = new list<Expr_ptr > ();
+	}
+	| moreexprlist COMMA expression
+	{
+	    $$.u_expr_list = $1.u_expr_list;
+	    $$.u_expr_list -> push_back($3.u_expr);
+	}
+	;
+
+
+expression:
+	or
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| expression OR or
+	{
+	    $$.u_expr = new Or($1.u_expr, $3.u_expr);
+	}
+	;
+
+or :
+	 and
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| or AND and
+	{
+	    $$.u_expr = new And($1.u_expr, $3.u_expr);
+	}
+	;
+
+and : 
+	comp
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| and EQUAL comp
+	{
+	    $$.u_expr = new Compare($1.u_expr, $3.u_expr);
+	}
+	| and NOTEQUAL comp
+	{
+	    $$.u_expr = new Noteq($1.u_expr, $3.u_expr);
+	}
+	;
+
+comp:
+	art
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| comp GTE art
+	{
+	    $$.u_expr = new Gteq($1.u_expr, $3.u_expr);
+	}
+	| comp GT art
+	{
+	    $$.u_expr = new Gt($1.u_expr, $3.u_expr);
+	}
+	| comp LT art
+	{
+	    $$.u_expr = new Lt($1.u_expr, $3.u_expr);
+	}
+	| comp LTE art
+	{
+	    $$.u_expr = new Lteq($1.u_expr, $3.u_expr);
+	}
+	;
+
+art:
+	div
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| art PLUS div
+	{
+	    $$.u_expr = new Plus($1.u_expr, $3.u_expr);
+	}
+	| art MINUS div
+	{
+	    $$.u_expr = new Minus($1.u_expr, $3.u_expr);
+	}
+	;
+
+div:
+	last
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| div DIVIDE last
+	{
+	    $$.u_expr = new Div($1.u_expr, $3.u_expr);
+	}
+	| div TIMES last
+	{
+	    $$.u_expr = new Times($1.u_expr, $3.u_expr);
+	}
+	;
+
+last:
+	unary
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	;
+
+unary:
+	factor
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| NOT unary
+	{
+	    $$.u_expr = new Not($2.u_expr);
+	}
+	| MINUS unary
+	{
+	    $$.u_expr = new Uminus($2.u_expr);
+	}
+	;
+
+factor:
+	NUMBER
+	{
+	    $$.u_expr = new IntLit(new Primitive($1.u_base_int));
+	}
+	| ZERO
+	{
+	    $$.u_expr = new IntLit(new Primitive($1.u_base_int));
+	}
+	| BIN
+	{
+	    $$.u_expr = new IntLit(new Primitive($1.u_base_int));
+	}
+	| HEX
+	{
+	    $$.u_expr = new IntLit(new Primitive($1.u_base_int));
+	}
+	| OCT
+	{
+	    $$.u_expr = new IntLit(new Primitive($1.u_base_int));
+	}
+	| TRUE
+	{
+	    $$.u_expr = new BoolLit(new Primitive($1.u_base_int));
+	}
+	| FALSE
+	{
+	    $$.u_expr = new BoolLit(new Primitive($1.u_base_int));
+	}
+	| IDENTIFIER
+	{
+	    $$.u_expr = new Ident(new SymName($1.u_base_charptr));
+	}
+	| OPAREN expression CPAREN
+	{
+	    $$.u_expr = $2.u_expr;
+	}
+	| ABS expression ABS
+	{
+	    $$.u_expr = new Magnitude($2.u_expr);
+	}
+	| IDENTIFIER OARRAY expression CARRAY
+	{
+	    $$.u_expr = new ArrayAccess(new SymName($1.u_base_charptr), $3.u_expr);
+	}
+	;
+
+/*
+expression
+	: expression PLUS expression
+	{
+		$$.u_expr = new Plus($1.u_expr, $3.u_expr);
+	}	
+	| expression ABS ABS expression
+	{
+		$$.u_expr = new Or($1.u_expr, $4.u_expr);
+	}
+	| expression AND expression
+        {
+                $$.u_expr = new And($1.u_expr, $3.u_expr);
+        }
+
+	| expression GT expression
+        {
+                $$.u_expr = new Gt($1.u_expr, $3.u_expr);
+        }
+
+	| expression GE expression
+        {
+                $$.u_expr = new Gteq($1.u_expr, $3.u_expr);
+        }
+
+	| expression LT expression
+        {
+                $$.u_expr = new Lt($1.u_expr, $3.u_expr);
+        }
+
+	| expression LE expression
+        {
+                $$.u_expr = new Lteq($1.u_expr, $3.u_expr);
+        }
+
+	| expression NE expression
+        {
+                $$.u_expr = new Noteq($1.u_expr, $3.u_expr);
+        }
+
+	| expression DEQ expression
+        {
+                $$.u_expr = new Compare($1.u_expr, $3.u_expr);
+        }
+
+	| expression MINUS expression 
+	{
+		$$.u_expr = new Minus($1.u_expr, $3.u_expr);
+	}
+	| expression DIVIDE expression 
+	{
+		$$.u_expr = new Div($1.u_expr, $3.u_expr);
+	}
+	| expression MULT expression 
+	{
+		$$.u_expr = new Times($1.u_expr, $3.u_expr);
+	}
+	| OPAREN expression CPAREN 
+	{
+		$$.u_expr = $2.u_expr;
+	}
+	| DECIMAL
+	{
+		//printf("heyo"); 
+		$$.u_expr = new IntLit(new Primitive($1.u_base_int));
+	}
+	| IDENT  
+	{
+		$$.u_expr = new Ident(new SymName($1.u_base_charptr));
+		//$$.u_expr = $2.u_expr;
+	}
+	| TRUE
+		{$$.u_expr = new BoolLit(new Primitive(1));} 
+	| FALSE 
+		{$$.u_expr = new BoolLit(new Primitive(0));}
+	| HEX 
+	| OCT 
+	| BIN 
+	| MINUS expression  
+	{
+		$$.u_expr = new Uminus($2.u_expr);
+	}
+	| NOT expression 
+	{
+		$$.u_expr = new Not($2.u_expr);
+	}
+	| ABS expression ABS 
+	{
+		$$.u_expr = new Magnitude($2.u_expr);
+	}
+	;
+*/
+%%
+/*********************************************************
+        Stop Here
+ *********************************************************/
+
+
+
+
+extern int yylineno;
+
+void yyerror(const char *s) {
+    fprintf(stderr, "%s at line %d\n", s, yylineno);
+    return;
+}
+
+

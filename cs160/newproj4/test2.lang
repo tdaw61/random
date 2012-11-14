@@ -1,0 +1,15 @@
+function Main(): integer {
+
+       (%adfslkjadfoiadflkfeoi(% dljadlf %)
+	var j, k, m, n: integer;
+	
+	var b: boolean;
+
+	function foo(inc: boolean): boolean {
+		
+		return true;
+	}
+
+	b = foo( true );
+	return 0;
+}

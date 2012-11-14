@@ -1,0 +1,31 @@
+module forward(MEM/WB.Regwrite, MEM/WB.RegisterRd, RS, RT, forwardA, forwardB)
+input MEM/WB.Regwrite;
+input MEM/WB.RegisterRd;
+input RS;
+input RT;
+output[1:0] forwardA;
+output[1:0] forwardB;
+reg MEM/WB.Regwrite;
+reg MEM/WB.RegisterRd;
+reg RS;
+reg RT;
+reg [1:0] forwardA;
+reg [1:0] forwardB;
+
+always @(MEM/WB.Regwrite or MEM/WB.RegisterRd or RS or RT)
+begin 
+	if((MEM/WB.Regwrite != 0) && (MEM/WB.RegisterRd != 0) && (MEM/WB.RegisterRd == RS))
+	begin 
+		forwardA <= 2'b01;
+    end 
+    if((MEM/WB.Regwrite != 0) && (MEM/WB.RegisterRd != 0) && (MEM/WB.RegisterRd == RT))
+	begin 
+		forwardB <= 2'b01;
+    end 
+    else
+	begin
+		forwardA <= 2'b00;
+		forwardB <= 2'b00;
+	end
+end 
+endmodule 

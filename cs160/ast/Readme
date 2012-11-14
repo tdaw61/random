@@ -1,0 +1,4 @@
+This is the turnin for Taylor Daw
+tdaw@umail.ucsb.edu
+
+ I think that this is almost all together, but there is some seg faulting that normally happens right around the assignment statements.  Other then that I think that other basics would work, but if I comment out various assignment statements the different tests will get to different spots in the program before seg faulting.

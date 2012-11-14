@@ -1,0 +1,18 @@
+<<This is the turnin for Taylor Daw, Khaled Al-Sherif, and Steven Garcia.>> 
+
+var x=0, y=0, z=0, i=0, t=0, o=0 in
+        output "Enter a non-negative number:";
+        x:= input num;
+        while (!(x=0))
+        {
+                y:=x;
+                while (2<=y) {y:=y-2};
+                t:=i;
+                x:=x-y;
+                z:=1;
+                while (!(t=0)) {z:=z*10; t:=t-1};
+                o:=o+(y*z);
+                i:=i+1;
+                x:=x/2
+        };
+        output o 

@@ -1,0 +1,7 @@
+Name: Taylor Daw
+Email: tdaw@umail.ucsb.edu
+
+ My Makefile will compile a working executeable for the four main files frequencies huffman 
+encode and decode.  frequencies and huffman work but encode does not work correctly and 
+neither does decode.  My encode puts out the wrong code so decode could possibly work but it 
+will not work with any input that encode gives out.

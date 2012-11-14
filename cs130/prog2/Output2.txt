@@ -1,0 +1,6 @@
+numbers 1-1000 have been inserted. 
+
+Max depth value: 999
+Average depth value: 499
+Max depth value after accesses: 155
+Average depth value after accesses: 81

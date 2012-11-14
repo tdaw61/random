@@ -1,0 +1,8 @@
+This is the turnin for Taylor Daw
+3402948
+
+This implementation should be working just fine on a 4.0.3 emulator, at least it sure works for me.
+The only problem I found was that I do not load my list correctly when orientation changes, but once a 
+new entry is made it updates the entire list.  The alertboxes I use as well as the select statement for
+when a menu item is selected I found online in a tutorial and used the base code to help me with the dialogs.
+

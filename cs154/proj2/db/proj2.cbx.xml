@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="proj2">
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_add_sub0:inst1|lpm_add_sub:lpm_add_sub_component" CBX_FILE_NAME="add_sub_2ph.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|regfilepipe:inst26|lpm_clshift0:inst4|lpm_clshift:lpm_clshift_component" CBX_FILE_NAME="lpm_clshift_ejb.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|regfilepipe:inst26|regfile:inst5|lpm_constant0:inst24|lpm_constant:lpm_constant_component" CBX_FILE_NAME="lpm_constant_qf6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|alupipe:inst2|lpm_constant1:inst7|lpm_constant:lpm_constant_component" CBX_FILE_NAME="lpm_constant_6e6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_constant4:inst15|lpm_constant:lpm_constant_component" CBX_FILE_NAME="lpm_constant_qf6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_mux0:inst11|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_unc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|regfilepipe:inst26|regfile:inst5|lpm_constant3:z|lpm_constant:lpm_constant_component" CBX_FILE_NAME="lpm_constant_qf6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|regfilepipe:inst26|regfile:inst5|lpm_decode1:inst|lpm_decode:lpm_decode_component" CBX_FILE_NAME="decode_ktf.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|lpm_constant6:inst18|lpm_constant:lpm_constant_component" CBX_FILE_NAME="lpm_constant_eh6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|lpm_mux5:inst11|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_rnc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|lpm_ram_dq1:inst13|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_isa1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_mux0:inst4|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_unc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|lpm_mux0:inst17|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_unc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|alupipe:inst2|lpm_add_sub1:inst2|lpm_add_sub:lpm_add_sub_component" CBX_FILE_NAME="add_sub_elh.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_mux0:inst5|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_unc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_mux6:inst16|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_nnc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|lpm_mux0:inst10|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_unc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|regfilepipe:inst26|regfile:inst5|lpm_mux3:inst25|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_unc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|alupipe:inst2|lpm_clshift0:inst3|lpm_clshift:lpm_clshift_component" CBX_FILE_NAME="lpm_clshift_ejb.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|alupipe:inst2|lpm_mux4:inst|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_unc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_mux6:inst17|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_nnc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|regfilepipe:inst26|lpm_constant1:inst9|lpm_constant:lpm_constant_component" CBX_FILE_NAME="lpm_constant_6e6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|regfilepipe:inst26|regfile:inst5|lpm_mux2:inst27|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_lpc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|alupipe:inst2|lpm_mux4:inst18|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_unc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_constant5:inst19|lpm_constant:lpm_constant_component" CBX_FILE_NAME="lpm_constant_3e6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_mux0:inst7|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_unc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_mux6:inst18|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_nnc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|fetchpipe:inst|lpm_rom1:inst2|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_3n71.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|regfilepipe:inst26|regfile:inst5|lpm_mux2:inst28|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_lpc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|alupipe:inst2|lpm_mux4:inst19|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_unc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|alupipe:inst2|lpm_mux5:inst10|lpm_mux:lpm_mux_component" CBX_FILE_NAME="mux_rnc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|regfilepipe:inst26|lpm_add_sub1:inst3|lpm_add_sub:lpm_add_sub_component" CBX_FILE_NAME="add_sub_elh.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|proj2|lpm_add_sub2:inst12|lpm_add_sub:lpm_add_sub_component" CBX_FILE_NAME="add_sub_2ph.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

@@ -1,0 +1,18 @@
+insert 5
+insert 30
+insert 10
+insert 33
+insert 105
+delete 1
+delete 1
+access 25
+insert 25
+delete 25
+delete 25
+insert 25
+insert 25
+access 15
+delete 2
+delete 1
+insert 3
+EOF

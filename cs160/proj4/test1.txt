@@ -1,0 +1,4 @@
+integer function Main() 
+{
+	return 10;
+}

@@ -1,0 +1,27 @@
+Taylor Daw
+#3402948
+tdaw@umail.ucsb.edu
+
+MP-2 Writeup
+
+  IMPORTANT: the program takes forever to run, it is not endlessly looping.
+
+	The program runs somewhat efficiently and it gets an answer, the problem is the design is extremely flawed.  Instead of using a much faster method such as 
+a hash table or a struct, I decided to make a series of vectors and arrays that store all the necessary information.  
+
+	I begin by running through the training set and gathering the totals for the total number of documents, total number of documents targeting each class, 
+the total number of words that targets each class, and I build the vocabulary.  This is where things get extremely slow and very inefficient.   I then go back 
+into the training file again, and I make 4 different arrays that are each the size of the vocabulary.  I then loop through the entire vocab to find the number of 
+times each word shows up for each class.  This means that worst case I am running through each vocab word and each token in every line.  This means my program 
+runs for about 3 minutes on the given training file, but it does get there.
+
+  The difficulties that I encountered were that early on I made a very straightforward approach with absolutely no regard for efficiency, and it resulted in a 
+program that ran even slower and had memory issues, but I think there were some other flaws that were resulting in overly large tables.  
+
+ The algorithm I ended up using was the nae bayes text classifier, but I used the algorithm with underflow prevention so it ends up using log and summing it up.
+The algorithm goes through and takes the words from the test file, and it then calculates log(#of times word occurs while class is target + 1)/(total # words in 
+class + |vocab|).  It does this for all 4 arrays, or for each class, and then adding   log(total #of docs that target class/total # docs).
+
+
+I would really like to go back and fix the slowness of my program and make it faster, and I know it could easily be done with a struct, but I am afraid of ruining 
+my program and I don.t have enough time before the turnin.  I also did not deal with if the test has a word that is not in the vocabulary. There was also a problem where if there are blank lines in the input, it messes up the output and the predicitions become far less accurate.

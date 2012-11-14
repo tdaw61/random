@@ -1,0 +1,41 @@
+library verilog;
+use verilog.vl_types.all;
+entity proj2 is
+    port(
+        alusrc          : out    vl_logic;
+        clock           : in     vl_logic;
+        reset           : in     vl_logic;
+        memtoreg        : out    vl_logic;
+        fwRs            : out    vl_logic;
+        fwRt            : out    vl_logic;
+        wren            : out    vl_logic;
+        jrsel           : out    vl_logic;
+        jsel            : out    vl_logic;
+        bsel            : out    vl_logic;
+        regwr           : out    vl_logic;
+        EN_C            : out    vl_logic;
+        diff            : out    vl_logic;
+        jal             : out    vl_logic;
+        A_out           : out    vl_logic_vector(7 downto 0);
+        aluout          : out    vl_logic_vector(7 downto 0);
+        aout            : out    vl_logic_vector(4 downto 0);
+        B_out           : out    vl_logic_vector(7 downto 0);
+        borc            : out    vl_logic_vector(4 downto 0);
+        bout            : out    vl_logic_vector(4 downto 0);
+        data11          : out    vl_logic_vector(7 downto 0);
+        data22          : out    vl_logic_vector(7 downto 0);
+        hazardop        : out    vl_logic_vector(5 downto 0);
+        instr           : out    vl_logic_vector(31 downto 0);
+        op              : out    vl_logic_vector(5 downto 0);
+        op2             : out    vl_logic_vector(5 downto 0);
+        pcplus4         : out    vl_logic_vector(7 downto 0);
+        rd1             : out    vl_logic_vector(4 downto 0);
+        result          : out    vl_logic_vector(7 downto 0);
+        result2         : out    vl_logic_vector(7 downto 0);
+        resultFromMem   : out    vl_logic_vector(7 downto 0);
+        rs2             : out    vl_logic_vector(4 downto 0);
+        rt1             : out    vl_logic_vector(4 downto 0);
+        rt2             : out    vl_logic_vector(4 downto 0);
+        truncate        : out    vl_logic_vector(7 downto 0)
+    );
+end proj2;

@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------------------
+Timing Analyzer Summary
+--------------------------------------------------------------------------------------
+
+Type           : Worst-case tsu
+Slack          : N/A
+Required Time  : None
+Actual Time    : 6.085 ns
+From           : reset
+To             : regfilepipe:inst26|regfile:inst5|lpm_dff3:t4|lpm_ff:lpm_ff_component|dffs[1]
+From Clock     : --
+To Clock       : clock
+Failed Paths   : 0
+
+Type           : Worst-case tco
+Slack          : N/A
+Required Time  : None
+Actual Time    : 14.360 ns
+From           : forwardunit:inst27|fwRt
+To             : data11[0]
+From Clock     : clock
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case th
+Slack          : N/A
+Required Time  : None
+Actual Time    : -0.521 ns
+From           : reset
+To             : fetchpipe:inst|lpm_dff0:inst|lpm_ff:lpm_ff_component|dffs[4]
+From Clock     : --
+To Clock       : clock
+Failed Paths   : 0
+
+Type           : Clock Setup: 'clock'
+Slack          : N/A
+Required Time  : None
+Actual Time    : 65.87 MHz ( period = 15.182 ns )
+From           : forwardunit:inst27|fwRt
+To             : Mem_WB:inst5|lpm_dff0:inst25|lpm_ff:lpm_ff_component|dffs[0]
+From Clock     : clock
+To Clock       : clock
+Failed Paths   : 0
+
+Type           : Clock Hold: 'clock'
+Slack          : Not operational: Clock Skew > Data Delay
+Required Time  : None
+Actual Time    : N/A
+From           : fetchstore:inst1|lpm_ff1:inst1|lpm_ff:lpm_ff_component|dffs[29]
+To             : regfilepipe:inst26|decoder:inst|memtoreg
+From Clock     : clock
+To Clock       : clock
+Failed Paths   : 101
+
+Type           : Total number of failed paths
+Slack          : 
+Required Time  : 
+Actual Time    : 
+From           : 
+To             : 
+From Clock     : 
+To Clock       : 
+Failed Paths   : 101
+
+--------------------------------------------------------------------------------------
+

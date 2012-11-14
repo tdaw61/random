@@ -1,0 +1,120 @@
+digraph G { 
+"1" [label="Program"]
+"0" -> "1"
+"2" [label="Func"]
+"1" -> "2"
+"3" [label="TInteger"]
+"2" -> "3"
+"4" [label="SymName\n\"foo\""]
+"2" -> "4"
+"5" [label="Decl"]
+"2" -> "5"
+"6" [label="TInteger"]
+"5" -> "6"
+"7" [label="SymName\n\"x\""]
+"5" -> "7"
+"8" [label="FunctionBlock"]
+"2" -> "8"
+"9" [label="Decl"]
+"8" -> "9"
+"10" [label="TBoolean"]
+"9" -> "10"
+"11" [label="SymName\n\"ok\""]
+"9" -> "11"
+"12" [label="Decl"]
+"8" -> "12"
+"13" [label="TInteger"]
+"12" -> "13"
+"14" [label="SymName\n\"i\""]
+"12" -> "14"
+"15" [label="Assignment"]
+"8" -> "15"
+"16" [label="SymName\n\"i\""]
+"15" -> "16"
+"17" [label="IntLit\n<2>"]
+"15" -> "17"
+"18" [label="Primitive\n2"]
+"17" -> "18"
+"19" [label="Assignment"]
+"8" -> "19"
+"20" [label="SymName\n\"ok\""]
+"19" -> "20"
+"21" [label="BoolLit\n<1>"]
+"19" -> "21"
+"22" [label="Primitive\n1"]
+"21" -> "22"
+"23" [label="WhileLoop"]
+"8" -> "23"
+"24" [label="Lt\n<1>"]
+"23" -> "24"
+"25" [label="Ident\n<2>"]
+"24" -> "25"
+"26" [label="SymName\n\"i\""]
+"25" -> "26"
+"27" [label="IntLit\n<10>"]
+"24" -> "27"
+"28" [label="Primitive\n10"]
+"27" -> "28"
+"29" [label="NestedBlock"]
+"23" -> "29"
+"30" [label="WhileLoop"]
+"29" -> "30"
+"31" [label="Ident\n<TOP>"]
+"30" -> "31"
+"32" [label="SymName\n\"ok\""]
+"31" -> "32"
+"33" [label="NestedBlock"]
+"30" -> "33"
+"34" [label="Assignment"]
+"33" -> "34"
+"35" [label="SymName\n\"ok\""]
+"34" -> "35"
+"36" [label="Not\n<TOP>"]
+"34" -> "36"
+"37" [label="Ident\n<TOP>"]
+"36" -> "37"
+"38" [label="SymName\n\"ok\""]
+"37" -> "38"
+"39" [label="Return"]
+"8" -> "39"
+"40" [label="Times\n<TOP>"]
+"39" -> "40"
+"41" [label="IntLit\n<2>"]
+"40" -> "41"
+"42" [label="Primitive\n2"]
+"41" -> "42"
+"43" [label="Ident\n<TOP>"]
+"40" -> "43"
+"44" [label="SymName\n\"x\""]
+"43" -> "44"
+"45" [label="Func"]
+"1" -> "45"
+"46" [label="TInteger"]
+"45" -> "46"
+"47" [label="SymName\n\"Main\""]
+"45" -> "47"
+"48" [label="FunctionBlock"]
+"45" -> "48"
+"49" [label="Decl"]
+"48" -> "49"
+"50" [label="TInteger"]
+"49" -> "50"
+"51" [label="SymName\n\"a\""]
+"49" -> "51"
+"52" [label="Call"]
+"48" -> "52"
+"53" [label="SymName\n\"a\""]
+"52" -> "53"
+"54" [label="SymName\n\"foo\""]
+"52" -> "54"
+"55" [label="IntLit\n<3>"]
+"52" -> "55"
+"56" [label="Primitive\n3"]
+"55" -> "56"
+"57" [label="Return"]
+"48" -> "57"
+"58" [label="IntLit\n<0>"]
+"57" -> "58"
+"59" [label="Primitive\n0"]
+"58" -> "59"
+}; 

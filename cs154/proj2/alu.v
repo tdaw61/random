@@ -1,0 +1,28 @@
+module alu(read1, read2, control, result, zero);
+input[7:0] read1;
+input[7:0] read2;
+input[2:0] control;
+output zero;
+output[7:0] result;
+reg[7:0] result;
+reg zero;
+always@(read1 or read2 or control)
+begin
+	case(control)
+		3'b000: result <= read1+read2;
+		3'b001: result <= read1-read2;
+		3'b010: result <= read1&read2;
+		3'b011: result <= read1<read2;
+		3'b100: result <= read1|read2;
+		3'b101: result <= read1^read2;
+		3'b110: result <= ~read1;
+	endcase
+end
+always@(result)
+begin
+	if(result==0)
+		zero<=1;
+	else
+		zero<=0;
+end		
+endmodule

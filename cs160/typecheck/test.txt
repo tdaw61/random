@@ -1,0 +1,7 @@
+function Main() : integer
+{
+ var a : integer;
+ a = Main();
+ a = a + 3 * 5;
+ return 0;
+}

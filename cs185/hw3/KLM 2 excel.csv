@@ -1,0 +1,78 @@
+KLM operator,M originally inserted,m deleted (rule),time,comment
+c,no,,3,start out by calculating the time you want
+p,yes,no,1.45,move to click the new time interval button
+k,yes,yes 1,0.2,click time interval button
+p,yes,yes 5 ,1.008,move to change month and multiply by 11/12 because you change the month 11/12 times 
+k,yes,no,1.42,"first click in a series, and still * 11/12"
+k,yes ,yes 2,0.183,.2*(11/12)
+k,yes,yes 2,0.183,""""
+p,yes,yes 1,1.06,1.1 * (29/30) for times day changes on average
+k,yes,no,1.498,"first click in changing day series, and still 29/30"
+k,yes,yes 2,0.193," click in day series, estimated to usually be about 7 clicks"
+k,yes,yes 2,0.193,""""
+k,yes,yes 2,0.193,""""
+k,yes,yes 2,0.193,""""
+k,yes,yes 2,0.193,""""
+k,yes,yes 2,0.193,""""
+p,yes,yes 1,0.9625,"move to change year, this happens 7/8 times"
+k,yes,no,1.356,go to click the year to bring up keyboard
+k,yes,yes 5 ,0.175,first click in changing year series
+k,yes,yes 1,0.175,click in year series
+k,yes,yes 1,0.175,click in year series
+k ,yes,yes 1,0.175,click in year series
+p,yes,yes 5 ,1.1,"go to press for a new time, this is anticipated"
+k,yes ,no,1.55," first click in changing hour series, which has 3 clicks on average"
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+p,yes,yes 1,1.1,"move to change minutes, this is anticipated"
+k,yes,no,1.55,"first click in changing minutes series, on average 15 times"
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,""""
+k,yes ,yes 2,0.2,""""
+k,yes ,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes ,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+p,yes ,yes 1,0.55,"move to click am/pm, but this happens half the time on average"
+k,yes,yes 1,0.1,"click am/pm, half the time on average"
+p,yes,yes 1,1.1,move to click duration hour
+k,yes,no,1.55,"first click in duration hour, 12 on average"
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k ,yes ,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k ,yes ,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k ,yes ,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k ,yes ,yes 2,0.2,click in series
+p,yes ,yes 1,1.1,"move to click duration minutes, anticipated 15 on average"
+k,yes,no,1.55,first click in duration minutes
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k ,yes ,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k ,yes ,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k ,yes ,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k ,yes ,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k ,yes ,yes 2,0.2,click in series
+p,yes,yes 1,1.1,"move to click set, anticipated"
+k,yes,yes 1,0.2,click set
+,,,35.3285,This 2nd interface is a bit more efficient then the first interface seeing as it saves some clicks by not re-entering the date

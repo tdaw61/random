@@ -1,0 +1,162 @@
+m255
+K3
+13
+cModel Technology
+dC:\altera\90\modelsim_ase\examples
+valu
+I^2eiS<jOQF`0X_^@zdIfD3
+V95K`9Ji[7f6cZQ87<LH?22
+Z0 dX:\cs154\simulation\modelsim
+w1302847081
+8X:/cs154/simulation/modelsim/Project1.vo
+FX:/cs154/simulation/modelsim/Project1.vo
+L0 31
+Z1 OV;L;6.4a;39
+r1
+31
+Z2 o-work work -nocovercells -O0
+!s100 PemY6ddZQAD:b1TJK?fK[3
+!s85 0
+valu_test
+IZC9_[MYN]A9b@jMnXHPHk1
+Vjfh^imoK[J25gP53WS`?31
+Z3 dX:\cs154\simulation\modelsim
+w1302848683
+8X:\cs154\simulation\modelsim\alu_test.vt
+FX:\cs154\simulation\modelsim\alu_test.vt
+L0 7
+R1
+r1
+31
+R2
+!s100 aY`oP7<m?1TIaEVFTPPYj3
+!s85 0
+vfetch
+ILQMi;^b;6[bl;H<=eI>V`2
+V1PdnPkJn7lOZ35gIEGMQK2
+R3
+w1302897221
+8X:\cs154\simulation\modelsim\Project1.vo
+FX:\cs154\simulation\modelsim\Project1.vo
+L0 31
+R1
+r1
+31
+R2
+!s100 5ZUWWcW<Z7TY9F7@1STSE3
+!s85 0
+vfetch_vlg_tst
+IPe7Id37lR1A5h^`BRIFeG1
+V82VKfTn4F>^36oEQgQ@;F0
+R3
+w1302897710
+Z4 8X:\cs154\simulation\modelsim\fetch.vt
+Z5 FX:\cs154\simulation\modelsim\fetch.vt
+L0 28
+R1
+r1
+31
+R2
+!s100 Ug9:]J30e4UIRW[N70cg:1
+!s85 0
+vfetchtest
+I4ISJD4`25oUPlP93a`>kA3
+VojP=nGn]Wm95=I>>McBgd0
+R3
+w1302894078
+8X:\cs154\simulation\modelsim\fetchtest.vt
+FX:\cs154\simulation\modelsim\fetchtest.vt
+L0 8
+R1
+r1
+31
+R2
+!s100 gU9]P9lJO9=HMSmfLX=ag2
+!s85 0
+vproj2
+!s100 FodRE6?[_6]j;MV_XGP=n3
+Ikl`_bU2_QjnT86LFKHIT>1
+VKeVmKDW4`o[1LnCEgzMEm3
+Z6 dX:\cs154\proj2\simulation\modelsim
+w1305846095
+8X:/cs154/proj2/simulation/modelsim/proj2.vo
+FX:/cs154/proj2/simulation/modelsim/proj2.vo
+L0 31
+R1
+r1
+!s85 0
+31
+R2
+vproj2_vlg_tst
+IW;<S0V4T_he[49jiX>b:z1
+V`Ke?blGShOAlOo^o7HX3V2
+R6
+w1305331788
+8X:/cs154/proj2/simulation/modelsim/proj2.vt
+FX:/cs154/proj2/simulation/modelsim/proj2.vt
+L0 28
+R1
+r1
+31
+R2
+!s100 ?4c8[Ol32L=[[NCXjKiI]2
+!s85 0
+vProject1
+I7T2afUcG:daMf>;]mKDUW1
+VD`:aNd[hX7R:m6NAn4l7R2
+R6
+w1303609617
+8X:\cs154\proj2\simulation\modelsim\proj2.vo
+FX:\cs154\proj2\simulation\modelsim\proj2.vo
+L0 31
+R1
+r1
+31
+R2
+n@project1
+!s100 m`DEi1M2R?7KIR22PnYh;3
+!s85 0
+vProject1_vlg_tst
+IY:[m][bmZVAB4C[K>X=z60
+VofAdUDNI?Ci?3?YYDL<AM3
+R6
+w1303609795
+8X:\cs154\proj2\simulation\modelsim\Project1.vt
+FX:\cs154\proj2\simulation\modelsim\Project1.vt
+L0 28
+R1
+r1
+31
+R2
+n@project1_vlg_tst
+!s100 ag:52?K_TRGOdLS[^EljJ3
+!s85 0
+vproject1test
+If6`@I:O=@S21K4Z_ojD1F1
+Vh;L1]WkHa3EA?WQUL^5P?0
+R3
+w1302851235
+8X:\cs154\simulation\modelsim\project1test.vt
+FX:\cs154\simulation\modelsim\project1test.vt
+L0 7
+R1
+r1
+31
+R2
+!s100 f8:TTQN@KaU><JLCnTMIW0
+!s85 0
+vTest_regfile
+I`ez>>HdfJ3Lij>H3faz[]2
+VA@l3WSbAdgc2CXM2<jcD[2
+R3
+w1302892435
+R4
+R5
+L0 7
+R1
+r1
+31
+R2
+n@test_regfile
+!s100 V<CPWeC^kQU]E>=?e6@=@1
+!s85 0

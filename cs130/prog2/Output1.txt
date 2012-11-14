@@ -1,0 +1,27 @@
+The numbers 7, 15, 9, 25, 34, 37, 4, 64, and 19 will be inserted in the order they appear.then numbers 7 and 15 will be accessed.
+15 7 
+ 
+19 NULL 
+9 NULL 
+25 NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+37 NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+NULL 
+34 64 

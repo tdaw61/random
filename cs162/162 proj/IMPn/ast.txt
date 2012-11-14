@@ -1,0 +1,1 @@
+Program(Block(List(VarBind(Var(a),Num(10)), VarBind(Var(b),Num(0)), VarBind(Var(c),NotUnit())),Seq(While(BinOp(Lte,Num(0),Var(a)),Seq(Assign(Var(b),BinOp(Mul,Var(b),BinOp(Add,Var(a),Num(1)))),Assign(Var(a),BinOp(Sub,Var(a),Num(1))))),Assign(Var(c),BinOp(Add,Var(a),Var(b))))))

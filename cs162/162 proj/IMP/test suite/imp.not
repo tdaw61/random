@@ -1,0 +1,7 @@
+var a = 10, b = 0, c = unit in {
+  while (0 <= a) {
+    b := b * (a + 1);
+    a := a - 1
+  };
+  c := a + b
+}

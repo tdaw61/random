@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TimeLog</string>
+    <string name="from"></string>
+    <string name="to"></string>
+    <string name="duration">Duration:</string>
+    <string name="set">&quot;  Set  &quot;</string>
+    <string name="colon">&quot; : &quot;</string>
+    <string name="New_Entry">New_Entry</string>
+    <string name="menu_save">Home</string>
+    <string name="settings">settings</string>
+    <string name="help">help</string>
+</resources>

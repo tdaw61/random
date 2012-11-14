@@ -1,0 +1,57 @@
+digraph AST {
+1 [label="10"];
+2 [label="a ="];
+2 -> 1
+3 [label="0"];
+4 [label="b ="];
+4 -> 3
+5 [label="unit"];
+6 [label="c ="];
+6 -> 5
+7 [label="0"];
+8 [label="a"];
+9 [label="<="];
+9 -> 7
+9 -> 8
+10 [label="b"];
+11 [label="a"];
+12 [label="1"];
+13 [label="+"];
+13 -> 11
+13 -> 12
+14 [label="*"];
+14 -> 10
+14 -> 13
+15 [label="b :="];
+15 -> 14
+16 [label="a"];
+17 [label="1"];
+18 [label="-"];
+18 -> 16
+18 -> 17
+19 [label="a :="];
+19 -> 18
+20 [label=";"];
+20 -> 15
+20 -> 19
+21 [label="while"];
+21 -> 9
+21 -> 20
+22 [label="a"];
+23 [label="b"];
+24 [label="+"];
+24 -> 22
+24 -> 23
+25 [label="c :="];
+25 -> 24
+26 [label=";"];
+26 -> 21
+26 -> 25
+27 [shape=box, label="block"];
+27 -> 2
+27 -> 4
+27 -> 6
+27 -> 26
+28 [shape=box, label="Program"];
+28 -> 27
+}

@@ -1,0 +1,27 @@
+`timescale 10ps / 1ps
+/************************************************************************
+* Testbench to generate some stimulus and display the results for the
+* regfile module -- a register file with asynch reset.
+************************************************************************/
+//*********************************************************
+module project1test;
+//*********************************************************
+//Outputs
+
+//Inputs
+reg clock;
+
+wire[4:0] A_addr;
+wire[4:0] B_addr;
+wire[4:0] C_addr;
+
+
+// Instantiate regfile (named DUT {device under test})
+Project1 DUT(clock);
+//This block generates a clock pulse with a 2 ns period
+always
+#1000 clock = ~clock;
+//$finish; // to shut down the simulation
+ //initial
+// this block
+endmodule

@@ -1,0 +1,24 @@
+integer function Main()
+{
+    integer var ret;
+    ret = compare(5,25);
+    return ret;
+}
+
+(% returns 1 if numberOne > numberTwo, 0 otherwise %)
+integer function compare(integer numberOne, numberTwo)
+{
+    integer var ret;
+
+    if(numberOne > numberTwo)
+    {
+        ret = 1; 
+    }
+    else 
+    {
+        ret = 0;     
+    }
+
+    return ret;
+}
+

@@ -1,0 +1,6 @@
+insert -20 lookup -20 insert 19 lookup 19 insert 18 lookup 18 insert 17 
+lookup 17 insert -16 lookup -16 insert -15 lookup -15 insert 14 print 
+lookup 14 insert -13 lookup -13 insert -12 lookup -12 insert 11 lookup 11 
+insert -10 lookup -10 insert -9 lookup -9 print insert 8 lookup 8 insert 
+-7 lookup -7 insert -6 lookup -6 insert 5 lookup 5 insert -4 lookup -4 
+insert -3 lookup -3 insert -2 lookup -2 insert 1 lookup 1 print EOF

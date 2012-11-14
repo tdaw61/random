@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/cs50/y7/!svn/ver/114/trunk/src/Equation
+END
+Log.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/cs50/y7/!svn/ver/114/trunk/src/Equation/Log.java
+END
+Root.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/cs50/y7/!svn/ver/114/trunk/src/Equation/Root.java
+END
+Equation.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/cs50/y7/!svn/ver/114/trunk/src/Equation/Equation.java
+END
+Abs.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/cs50/y7/!svn/ver/106/trunk/src/Equation/Abs.java
+END
+Croot.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/cs50/y7/!svn/ver/114/trunk/src/Equation/Croot.java
+END
+Ln.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/cs50/y7/!svn/ver/114/trunk/src/Equation/Ln.java
+END
+Power.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/cs50/y7/!svn/ver/114/trunk/src/Equation/Power.java
+END
+Euler.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/cs50/y7/!svn/ver/114/trunk/src/Equation/Euler.java
+END
+TrigSolve.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/cs50/y7/!svn/ver/114/trunk/src/Equation/TrigSolve.java
+END

@@ -1,0 +1,7 @@
+var "b64" "21 09 29 b65 21 09 12 "
+"08 What string should I double? 28"
+"b64 27 07 11 28"
+"08 How many times should I double it? 28"
+"b65 27 07 10 28"
+"04 25 33 0 22 b65 15 33 1 26 23 b64 27 b64 14 b64 28 b65 27 b65 15 33 1 24 28"
+"08 b64 "

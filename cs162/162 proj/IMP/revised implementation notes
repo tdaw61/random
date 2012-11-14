@@ -1,0 +1,5 @@
+Revised implementation notes:
+
+ So far our implementation is working well, but it may require some small tweaks. We will now generally attack the languages as a whole, and we will still try to make notC a goal, but we could change our focus and maybe work on the parser implementation to alter how the bytecode gets to us. We are not completely sure yet, because altering the parser could turn out to be a lot of work and would take the focus away from the languages and focus more on the compiler. 
+
+

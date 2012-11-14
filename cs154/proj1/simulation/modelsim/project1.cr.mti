@@ -1,0 +1,15 @@
+X:/cs154/simulation/modelsim/Project1.vo {1 {vlog -work work -nocovercells {X:\cs154\simulation\modelsim\Project1.vo}
+Model Technology ModelSim ALTERA vlog 6.4a Compiler 2008.08 Oct 22 2008
+-- Compiling module Project1
+
+Top level modules:
+	Project1
+
+} {} {}} X:/cs154/simulation/modelsim/Project1.vt {1 {vlog -work work -nocovercells {X:\cs154\simulation\modelsim\Project1.vt}
+Model Technology ModelSim ALTERA vlog 6.4a Compiler 2008.08 Oct 22 2008
+-- Compiling module Project1_vlg_tst
+
+Top level modules:
+	Project1_vlg_tst
+
+} {} {}}

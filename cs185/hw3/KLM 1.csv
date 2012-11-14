@@ -1,0 +1,89 @@
+KLM Operator,M originally inserted,M deleted? (Rule #),Time,Comment
+c,no,,3,start out by calculating the time you want
+p,yes,no,1.45,move to click the new time interval button
+k,yes,yes 1,0.2,click time interval button
+r,no,no,0.1,wait for the dialog to show up assumed .1 for actual time
+p,yes,yes 5 ,1.008,move to change month and multiply by 11/12 because you change the month 11/12 times 
+k,yes,no,1.42,"first click in a series, and still * 11/12"
+k,yes ,yes 2,0.183,.2*(11/12)
+k,yes,yes 2,0.183,""""
+p,yes,yes 1,1.06,1.1 * (29/30) for times day changes on average
+k,yes,no,1.498,"first click in changing day series, and still 29/30"
+k,yes,yes 2,0.193," click in day series, estimated to usually be about 7 clicks"
+k,yes,yes 2,0.193,""""
+k,yes,yes 2,0.193,""""
+k,yes,yes 2,0.193,""""
+k,yes,yes 2,0.193,""""
+k,yes,yes 2,0.193,""""
+p,yes,yes 1,0.9625,"move to change year, this happens 7/8 times"
+k,yes,no,1.356,go to click the year to bring up keyboard
+r,no,no,0.1,waiting to bring up keyboard
+k,yes,yes 5 ,0.175,first click in changing year series
+k,yes,yes 1,0.175,click in year series
+k,yes,yes 1,0.175,click in year series
+k ,yes,yes 1,0.175,click in year series
+p,yes,yes 1,1.1,move to click set button
+k,yes,yes 1,0.2,click set button
+r,no,no,0.1,waiting for new picker to come up
+p,yes,yes 5 ,1.1,"go to press for a new time, this is anticipated"
+k,yes ,no,1.55," first click in changing hour series, which has 3 clicks on average"
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+p,yes,yes 1,1.1,"move to change minutes, this is anticipated"
+k,yes,no,1.55,"first click in changing minutes series, on average 15 times"
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,""""
+k,yes ,yes 2,0.2,""""
+k,yes ,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes ,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+k,yes,yes 2,0.2,""""
+p,yes ,yes 1,0.55,"move to click am/pm, but this happens half the time on average"
+k,yes,yes 1,0.1,"click am/pm, half the time on average"
+p,yes,yes 1,1.1,"move to click set button, anticipated"
+k,yes,yes 1,0.2,"click set button, anticipated"
+p,yes,no,2.45,move to press new time interval
+k,yes,yes 1,0.2,"press new time interval, anticipated"
+r,no,no,0.1,wait for the dialog to show up assumed .1 for actual time
+p,yes,yes 1,0.073,"move to click month, but this only happens 2/30 times on average, because the 2 day interval"
+k,yes,yes 1,0.013,"click month, 2/30 applied again, month can't change by more then 1"
+p,yes,yes 1,0.22,"move to change day, this is only changed 20% of the time"
+k,yes,yes 1,0.04,"click day, 20%"
+p,yes,yes 1,0.004,"move to click year, happens 2/365 times"
+k,yes,yes 1,0.001,"click year, 2/365"
+p,yes,yes 1 ,1.1,"move to click set, anticipated"
+k,yes,yes 1,0.2,click set
+r,no,no ,0.1,wait for new dialog
+p,yes,yes 5 ,1.1,move to click hours
+k,yes,no,1.55,"first click in hour series, 3 clicks on average"
+k,yes,yes 2,0.2,click in series
+k ,yes ,yes 2,0.2,click in series
+ p,yes,yes 1,1.1,move to click minutes 15 clicks on average
+k,yes,no,1.55,first click in minutes series
+k,yes,yes 1,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k ,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes ,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes ,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+k,yes,yes 2,0.2,click in series
+p,yes,yes 1,0.55,move to click the am/pm only happens half the time
+k,yes,yes 1,0.1,"click am/pm, half the time on average"
+p,yes,yes 1,1.1,move to click set
+k,yes,yes 1,0.2,click set button
+,,,41.3795,

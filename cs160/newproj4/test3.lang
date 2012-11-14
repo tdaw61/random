@@ -1,0 +1,19 @@
+function foo(x: integer): integer
+{
+    var i: integer;
+    var ok: boolean;
+    ok = true;
+    i = 1;
+    while (i<10) {
+	while ((ok)) {
+	    ok = !ok;
+        }
+    }
+    return 2*x;
+}
+
+function Main(): integer
+{
+    var a: integer;
+    return 0;
+}

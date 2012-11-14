@@ -1,0 +1,14 @@
+insert 10
+insert 5
+insert 10
+delete 5
+delete 4
+insert -1
+insert 43
+insert 42
+insert 44
+insert -44
+insert 5
+deleteMin
+print
+EOF

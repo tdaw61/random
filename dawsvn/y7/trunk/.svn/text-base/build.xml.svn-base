@@ -1,0 +1,25 @@
+<?xml version="1.0" ?> 
+<!--  Sebastian Mazilu  1/25/10 
+  --> 
+<project name="Calculator" default="archive">
+<target name="init">
+  <mkdir dir="build/classes" /> 
+  <mkdir dir="dist" /> 
+  </target>
+<target name="compile" depends="init">
+  <javac srcdir="src" destdir="build/classes" /> 
+  </target>
+<target name="archive" depends="compile">
+<jar destfile="dist/Calculator.jar" basedir="build/classes">
+<manifest>
+  <attribute name="Built-By" value="Sebastian Mazilu" /> 
+  <attribute name="Main-Class" value="GUI.GUI" /> 
+  <attribute name="Class-Path" value="dist/Calculator.jar" /> 
+  </manifest>
+  </jar>
+  </target>
+<target name="clean" depends="init">
+  <delete dir="build" /> 
+  <delete dir="dist" /> 
+  </target>
+  </project>

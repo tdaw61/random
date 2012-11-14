@@ -1,0 +1,443 @@
+%{
+	#include <stdio.h>
+	#include <stdlib.h>
+
+    	#include "ast.hpp"
+    	#include "primitive.hpp"
+    	#include "symtab.hpp"
+
+	#define YYDEBUG 1
+
+    	extern Program_ptr ast;
+	int yylex(void);
+	void yyerror(const char *);
+%}
+
+%error-verbose
+
+
+
+/*********************************************************
+        Replace With Your Code From Project 3 
+ *********************************************************/
+%start Program
+%token BOOLEAN
+%token ELSE
+%token IF
+%token WHILE
+%token INTEGER
+%token FOR
+%token VAR
+%token FUNCTION
+%token INTARRAY
+%token RETURN
+%token AND
+%token DIVIDE
+%token EQUAL
+%token SET
+%token GTE
+%token GT
+%token LTE
+%token LT
+%token MINUS
+%token NOTEQUAL
+%token NOT
+%token OR
+%token PLUS
+%token TIMES
+%token TRUE
+%token FALSE
+%token NUMBER
+%token SEMICOLON
+%token COMMA
+%token COLON
+%token ABS
+%token CURLYOPEN
+%token CURLYCLOSE
+%token SQUAREOPEN
+%token SQUARECLOSE
+%token PARENOPEN
+%token PARENCLOSE
+%token IDENTIFIER
+
+
+
+%%
+
+
+
+Program : functions
+{
+    ast = new Program($1.u_func_list);
+    //printf("success");
+}
+functions: functions function
+	{
+    		$$.u_func_list = $1.u_func_list;
+	    	$$.u_func_list -> push_back($2.u_func);
+	}
+	| /*empty*/
+	{
+   		 $$.u_func_list = new list<Func_ptr > ();
+	}
+	;
+
+type:
+	BOOLEAN
+	{
+	    $$.u_type = new TBoolean();
+	}
+	| INTEGER
+	{
+	    $$.u_type = new TInteger();
+	}
+
+params:
+	params_
+	{
+    		$$ = $1;
+	}
+	|	
+	{
+	    $$.u_decl_list = new list<Decl_ptr > ();
+	}
+	;
+
+params_:
+	params_ SEMICOLON param
+	{
+	    $1.u_decl_list -> push_back($3.u_decl);
+	    $$ = $1;
+	}
+	| param
+	{
+	    $$.u_decl_list = new list<Decl_ptr > ();
+	    $$.u_decl_list -> push_back($1.u_decl);
+	}
+	;
+
+param:
+	var_list COLON type
+	{
+	    $$.u_decl = new Decl($3.u_type, $1.u_symname_list);
+	}
+	;
+
+var_list:
+	var_list COMMA IDENTIFIER
+	{
+	    $1.u_symname_list -> push_back(new SymName($3.u_base_charptr));
+	    $$ = $1;
+	}
+	| IDENTIFIER
+	{
+	    $$.u_symname_list = new list<SymName_ptr > ();
+	    $$.u_symname_list -> push_back(new SymName($1.u_base_charptr));
+	}
+	;
+/*					
+paramlist			: {$$.u_decl_list = new list<Decl_ptr>();}
+                                        | paramtype moretypes {$$.u_decl_list = $3.u_decl_list; $$.u_decl_list -> push_front(new Decl($1.u_type, $2.u_symname_list)); }
+                                        ;
+moretypes			:moretypes COLON type paramtype {$$.u_decl_list=$1.u_decl_list; $$.u_decl_list -> push_back(new Decl($3.u_type, $4.u_symname_list));}
+                                        | {$$.u_decl_list = new list<Decl_ptr>();}
+                                        ;
+paramtype			:IDENTIFIER moreparams {$$.u_symname_list=$2.u_symname_list; $$.u_symname_list -> push_front(new SymName($1.u_base_charptr));}
+                                        ;
+ */
+
+moreparams:
+	moreparams COMMA IDENTIFIER
+	{
+	    $$.u_symname_list = $1.u_symname_list;
+	    $$.u_symname_list -> push_back(new SymName($3.u_base_charptr));
+	}
+	|
+	{
+    		$$.u_symname_list = new list<SymName_ptr > ();
+	}
+	;
+
+function:
+	FUNCTION IDENTIFIER PARENOPEN params PARENCLOSE COLON type CURLYOPEN body_of_function CURLYCLOSE
+	{
+    		$$.u_func = new Func($7.u_type, new SymName($2.u_base_charptr), $4.u_decl_list, $9.u_function_block);
+	}
+	;
+
+body_of_function:
+	var_declaration function_declaration statements ReturnStatement
+	{
+    		$$.u_function_block =
+            new Function_block($1.u_decl_list,
+            $2.u_func_list,
+            $3.u_stat_list,
+            new Return($4.u_expr));
+	}
+	;
+
+ReturnStatement
+	: RETURN expression SEMICOLON
+	{
+    		$$.u_expr = $2.u_expr;
+	}
+	;
+var_declaration:
+	/*empty*/
+	{
+    		$$.u_decl_list = new list<Decl_ptr > ();
+	}
+	| var_declaration VAR IDENTIFIER moreparams COLON type SEMICOLON
+	{
+    		$4.u_symname_list -> push_front(new SymName($3.u_base_charptr));
+	    	$$.u_decl_list = $1.u_decl_list;
+		$$.u_decl_list -> push_back(new Decl($6.u_type, $4.u_symname_list));
+	}
+	| var_declaration VAR IDENTIFIER moreparams COLON INTARRAY SQUAREOPEN NUMBER SQUARECLOSE SEMICOLON
+	{
+	    $4.u_symname_list -> push_front(new SymName($3.u_base_charptr));
+	    $$.u_decl_list = $1.u_decl_list;
+	    $$.u_decl_list -> push_back(new Decl(new TIntArray(new Primitive($8.u_base_int)), $4.u_symname_list));
+	}
+	;
+
+function_declaration:
+	/*empty*/
+	{
+	    $$.u_func_list = new list<Func_ptr > ();
+	}
+	| function function_declaration
+	{
+	    $$.u_func_list = $2.u_func_list;
+	    $$.u_func_list -> push_front($1.u_func);
+	}
+	;
+
+statements:
+	statements statement
+	{
+	    $$.u_stat_list = $1.u_stat_list;
+	    $$.u_stat_list -> push_back($2.u_stat);
+	}
+	| /*empty*/
+	{
+	    $$.u_stat_list = new list<Stat_ptr > ();
+	}
+	;
+
+statement:
+	/*functioncall*/IDENTIFIER SET IDENTIFIER PARENOPEN exprlist PARENCLOSE SEMICOLON
+	{
+    		$$.u_stat = new Call(new SymName($1.u_base_charptr), new SymName($3.u_base_charptr), $5.u_expr_list);
+	}
+	| /*functioncall*/IDENTIFIER SQUAREOPEN expression SQUARECLOSE SET IDENTIFIER PARENOPEN exprlist PARENCLOSE SEMICOLON
+	{
+	    $$.u_stat = new ArrayCall(new SymName($1.u_base_charptr), $3.u_expr, new SymName($6.u_base_charptr), $8.u_expr_list);
+	}
+	| /*IF*/IF PARENOPEN expression PARENCLOSE CURLYOPEN statements CURLYCLOSE
+	{
+	    $$.u_stat = new IfNoElse($3.u_expr, new Nested_block($6.u_stat_list));
+	}
+	| /*IF*/IF PARENOPEN expression PARENCLOSE CURLYOPEN statements CURLYCLOSE ELSE CURLYOPEN statements CURLYCLOSE
+	{
+	    $$.u_stat = new IfWithElse($3.u_expr, new Nested_block($6.u_stat_list), new Nested_block($10.u_stat_list));
+	}
+	| WHILE PARENOPEN expression PARENCLOSE CURLYOPEN statements CURLYCLOSE
+	{
+	    $$.u_stat = new WhileLoop($3.u_expr, new Nested_block($6.u_stat_list));
+	}
+	| /*assignment*/ IDENTIFIER SET expression SEMICOLON
+	{
+	    $$.u_stat = new Assignment(new SymName($1.u_base_charptr), $3.u_expr);
+	}
+	| /*assignment*/ IDENTIFIER SQUAREOPEN expression SQUARECLOSE SET expression SEMICOLON
+	{
+	    $$.u_stat = new ArrayAssignment(new SymName($1.u_base_charptr), $3.u_expr, $6.u_expr);
+	}
+	;
+
+/*
+assignment_statement: IDENTIFIER SET expression SEMICOLON {$$.u_stat = new Assignment(new SymName($1.u_base_charptr), $3.u_expr);}
+                                        | IDENTIFIER SQUAREOPEN expression SQUARECLOSE SET expression SEMICOLON {$$.u_stat = new ArrayAssignment(new SymName($1.u_base_charptr), $3.u_expr, $6.u_expr);}
+                                        ;
+ */
+
+expression:
+	or
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| expression OR or
+	{
+	    $$.u_expr = new Or($1.u_expr, $3.u_expr);
+	}
+	;
+
+or :
+	 and
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| or AND and
+	{
+	    $$.u_expr = new And($1.u_expr, $3.u_expr);
+	}
+	;
+
+and : 
+	comparator
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| and EQUAL comparator
+	{
+	    $$.u_expr = new Compare($1.u_expr, $3.u_expr);
+	}
+	| and NOTEQUAL comparator
+	{
+	    $$.u_expr = new Noteq($1.u_expr, $3.u_expr);
+	}
+	;
+
+comparator:
+	difference
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| comparator LT difference
+	{
+	    $$.u_expr = new Lt($1.u_expr, $3.u_expr);
+	}
+	| comparator LTE difference
+	{
+	    $$.u_expr = new Lteq($1.u_expr, $3.u_expr);
+	}
+	| comparator GT difference
+	{
+	    $$.u_expr = new Gt($1.u_expr, $3.u_expr);
+	}
+	| comparator GTE difference
+	{
+	    $$.u_expr = new Gteq($1.u_expr, $3.u_expr);
+	}
+	;
+
+difference:
+	add
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| difference PLUS add
+	{
+	    $$.u_expr = new Plus($1.u_expr, $3.u_expr);
+	}
+	| difference MINUS add
+	{
+	    $$.u_expr = new Minus($1.u_expr, $3.u_expr);
+	}
+	;
+
+add:
+	times
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| add DIVIDE times
+	{
+	    $$.u_expr = new Div($1.u_expr, $3.u_expr);
+	}
+	| add TIMES times
+	{
+	    $$.u_expr = new Times($1.u_expr, $3.u_expr);
+	}
+	;
+
+times:
+	unary
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	;
+
+unary:
+	factor
+	{
+	    $$.u_expr = $1.u_expr;
+	}
+	| NOT unary
+	{
+	    $$.u_expr = new Not($2.u_expr);
+	}
+	| MINUS unary
+	{
+	    $$.u_expr = new Uminus($2.u_expr);
+	}
+	;
+
+factor:
+	NUMBER
+	{
+	    $$.u_expr = new IntLit(new Primitive($1.u_base_int));
+	}
+	| TRUE
+	{
+	    $$.u_expr = new BoolLit(new Primitive($1.u_base_int));
+	}
+	| FALSE
+	{
+	    $$.u_expr = new BoolLit(new Primitive($1.u_base_int));
+	}
+	| IDENTIFIER
+	{
+	    $$.u_expr = new Ident(new SymName($1.u_base_charptr));
+	}
+	| PARENOPEN expression PARENCLOSE
+	{
+	    $$.u_expr = $2.u_expr;
+	}
+	| ABS expression ABS
+	{
+	    $$.u_expr = new Magnitude($2.u_expr);
+	}
+	| IDENTIFIER SQUAREOPEN expression SQUARECLOSE
+	{
+	    $$.u_expr = new ArrayAccess(new SymName($1.u_base_charptr), $3.u_expr);
+	}
+	;
+
+exprlist:
+	{
+	    $$.u_expr_list = new list<Expr_ptr > ();
+	}
+	| expression moreexprlist
+	{
+	    $$.u_expr_list = $2.u_expr_list;
+	    $$.u_expr_list -> push_front($1.u_expr);
+	}
+	;
+
+moreexprlist:
+	{
+	    $$.u_expr_list = new list<Expr_ptr > ();
+	}
+	| moreexprlist COMMA expression
+	{
+	    $$.u_expr_list = $1.u_expr_list;
+	    $$.u_expr_list -> push_back($3.u_expr);
+	}
+	;
+
+%%
+/*********************************************************
+        Stop Here
+ *********************************************************/
+
+
+
+
+extern int yylineno;
+
+void yyerror(const char *s) {
+    fprintf(stderr, "%s at line %d\n", s, yylineno);
+    return;
+}

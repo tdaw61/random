@@ -1,0 +1,8 @@
+Readme
+
+This is the turnin for Taylor Daw, Khaled Al-Sherif, and Steven Garcia.
+
+We are doing the bytecode interpreter.
+
+So far we have implemented a bytecode interpreter using IMP. If you compile the IMP intepreter provided and the syntax provided using scalac interpreter.scala syntax.scala
+and then run the program with scala IMP and a test program the program should run.  The tests are broken down into the bytecode so it is more difficult to understand. The test case provided is the double.not test given to us in the IMP test suite, but changed into bytecode.

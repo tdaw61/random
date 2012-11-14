@@ -1,0 +1,2653 @@
+Terminals unused in grammar
+
+   COMMENT
+   OR
+
+
+State 1 conflicts: 2 shift/reduce
+State 5 conflicts: 2 shift/reduce
+State 19 conflicts: 1 shift/reduce
+State 20 conflicts: 1 shift/reduce
+State 58 conflicts: 1 shift/reduce
+State 65 conflicts: 12 shift/reduce
+State 66 conflicts: 12 shift/reduce
+State 94 conflicts: 1 shift/reduce
+State 97 conflicts: 12 shift/reduce
+State 98 conflicts: 12 shift/reduce
+State 99 conflicts: 12 shift/reduce
+State 100 conflicts: 12 shift/reduce
+State 101 conflicts: 12 shift/reduce
+State 102 conflicts: 12 shift/reduce
+State 103 conflicts: 12 shift/reduce
+State 104 conflicts: 12 shift/reduce
+State 105 conflicts: 12 shift/reduce
+State 106 conflicts: 12 shift/reduce
+State 108 conflicts: 12 shift/reduce
+State 115 conflicts: 12 shift/reduce
+State 132 conflicts: 12 shift/reduce, 24 reduce/reduce
+State 138 conflicts: 12 shift/reduce
+
+
+Grammar
+
+    0 $accept: ROOT $end
+
+    1 ROOT: /* empty */
+    2     | ROOT Program
+
+    3 Program: Functions
+    4        | END
+
+    5 Functions: /* empty */
+    6          | Functions Function
+
+    7 Function: Returntype FUNCTION functionid OPAREN Parameterlist CPAREN OFUNC bodyoffunction return CFUNC
+
+    8 Returntype: INT
+    9           | BOOLEAN
+
+   10 Type: INT
+   11     | BOOLEAN
+   12     | INTARRAY OARRAY integerLiteral CARRAY
+
+   13 integerLiteral: DECIMAL
+
+   14 functionid: LITERAL
+
+   15 Parameterlist: /* empty */
+   16              | Parameterlist Returntype List
+
+   17 List: LITERAL List
+   18     | COMMA List
+   19     | SEMI
+   20     | /* empty */
+
+   21 bodyoffunction: bodyoffunction variabledec
+   22               | bodyoffunction Statement
+   23               | bodyoffunction Function
+   24               | /* empty */
+
+   25 variabledec: Type VAR List
+
+   26 Statement: LITERAL assignment
+   27          | if
+   28          | for
+
+   29 if: IF OPAREN expression CPAREN OFUNC bodyofnested CFUNC else
+
+   30 else: /* empty */
+   31     | ELSE OFUNC bodyofnested CFUNC
+
+   32 for: FOR OPAREN posstate OPAREN expression CPAREN posstate CPAREN OFUNC bodyofnested CFUNC
+
+   33 posstate: /* empty */
+   34         | Statement
+
+   35 bodyofnested: /* empty */
+   36             | Statement bodyofnested
+
+   37 assignment: EQ dec SEMI
+   38           | OARRAY expression CARRAY EQ dec SEMI
+
+   39 dec: Equation
+   40    | functioncall
+
+   41 functioncall: LITERAL OPAREN flist CPAREN
+
+   42 flist: /* empty */
+   43      | expression flist
+   44      | COMMA flist
+
+   45 return: RETURN expression SEMI
+
+   46 Equation: expression
+
+   47 expression: expression PLUS expression
+   48           | expression ABS ABS expression
+   49           | expression AND expression
+   50           | expression GT expression
+   51           | expression GE expression
+   52           | expression LT expression
+   53           | expression LE expression
+   54           | expression NE expression
+   55           | expression DEQ expression
+   56           | expression MINUS expression
+   57           | expression DIVIDE expression
+   58           | expression MULT expression
+   59           | OPAREN expression CPAREN
+   60           | DECIMAL
+   61           | LITERAL lit
+   62           | TRUE
+   63           | FALSE
+   64           | HEX
+   65           | OCT
+   66           | BIN
+   67           | MINUS expression
+   68           | ZERO
+   69           | NOT expression
+   70           | ABS expression ABS
+
+   71 lit: /* empty */
+   72    | OARRAY expression CARRAY
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+COMMENT (258)
+EQ (259) 37 38
+DEQ (260) 55
+NE (261) 54
+LT (262) 52
+LE (263) 53
+GT (264) 50
+GE (265) 51
+PLUS (266) 47
+MINUS (267) 56 67
+DIVIDE (268) 57
+AND (269) 49
+OR (270)
+NOT (271) 69
+SEMI (272) 19 37 38 45
+COMMA (273) 18 44
+ABS (274) 48 70
+OFUNC (275) 7 29 31 32
+CFUNC (276) 7 29 31 32
+OPAREN (277) 7 29 32 41 59
+CPAREN (278) 7 29 32 41 59
+OARRAY (279) 12 38 72
+CARRAY (280) 12 38 72
+BOOLEAN (281) 9 11
+IF (282) 29
+ELSE (283) 31
+FOR (284) 32
+FUNCTION (285) 7
+INTARRAY (286) 12
+RETURN (287) 45
+TRUE (288) 62
+FALSE (289) 63
+INT (290) 8 10
+DECIMAL (291) 13 60
+HEX (292) 64
+OCT (293) 65
+BIN (294) 66
+ZERO (295) 68
+VAR (296) 25
+MULT (297) 58
+LITERAL (298) 14 17 26 41 61
+END (299) 4
+
+
+Nonterminals, with rules where they appear
+
+$accept (45)
+    on left: 0
+ROOT (46)
+    on left: 1 2, on right: 0 2
+Program (47)
+    on left: 3 4, on right: 2
+Functions (48)
+    on left: 5 6, on right: 3 6
+Function (49)
+    on left: 7, on right: 6 23
+Returntype (50)
+    on left: 8 9, on right: 7 16
+Type (51)
+    on left: 10 11 12, on right: 25
+integerLiteral (52)
+    on left: 13, on right: 12
+functionid (53)
+    on left: 14, on right: 7
+Parameterlist (54)
+    on left: 15 16, on right: 7 16
+List (55)
+    on left: 17 18 19 20, on right: 16 17 18 25
+bodyoffunction (56)
+    on left: 21 22 23 24, on right: 7 21 22 23
+variabledec (57)
+    on left: 25, on right: 21
+Statement (58)
+    on left: 26 27 28, on right: 22 34 36
+if (59)
+    on left: 29, on right: 27
+else (60)
+    on left: 30 31, on right: 29
+for (61)
+    on left: 32, on right: 28
+posstate (62)
+    on left: 33 34, on right: 32
+bodyofnested (63)
+    on left: 35 36, on right: 29 31 32 36
+assignment (64)
+    on left: 37 38, on right: 26
+dec (65)
+    on left: 39 40, on right: 37 38
+functioncall (66)
+    on left: 41, on right: 40
+flist (67)
+    on left: 42 43 44, on right: 41 43 44
+return (68)
+    on left: 45, on right: 7
+Equation (69)
+    on left: 46, on right: 39
+expression (70)
+    on left: 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
+    65 66 67 68 69 70, on right: 29 32 38 43 45 46 47 48 49 50 51 52
+    53 54 55 56 57 58 59 67 69 70 72
+lit (71)
+    on left: 71 72, on right: 61
+
+
+state 0
+
+    0 $accept: . ROOT $end
+
+    $default  reduce using rule 1 (ROOT)
+
+    ROOT  go to state 1
+
+
+state 1
+
+    0 $accept: ROOT . $end
+    2 ROOT: ROOT . Program
+
+    $end  shift, and go to state 2
+    END   shift, and go to state 3
+
+    $end      [reduce using rule 5 (Functions)]
+    END       [reduce using rule 5 (Functions)]
+    $default  reduce using rule 5 (Functions)
+
+    Program    go to state 4
+    Functions  go to state 5
+
+
+state 2
+
+    0 $accept: ROOT $end .
+
+    $default  accept
+
+
+state 3
+
+    4 Program: END .
+
+    $default  reduce using rule 4 (Program)
+
+
+state 4
+
+    2 ROOT: ROOT Program .
+
+    $default  reduce using rule 2 (ROOT)
+
+
+state 5
+
+    3 Program: Functions .
+    6 Functions: Functions . Function
+
+    BOOLEAN  shift, and go to state 6
+    INT      shift, and go to state 7
+
+    BOOLEAN   [reduce using rule 3 (Program)]
+    INT       [reduce using rule 3 (Program)]
+    $default  reduce using rule 3 (Program)
+
+    Function    go to state 8
+    Returntype  go to state 9
+
+
+state 6
+
+    9 Returntype: BOOLEAN .
+
+    $default  reduce using rule 9 (Returntype)
+
+
+state 7
+
+    8 Returntype: INT .
+
+    $default  reduce using rule 8 (Returntype)
+
+
+state 8
+
+    6 Functions: Functions Function .
+
+    $default  reduce using rule 6 (Functions)
+
+
+state 9
+
+    7 Function: Returntype . FUNCTION functionid OPAREN Parameterlist CPAREN OFUNC bodyoffunction return CFUNC
+
+    FUNCTION  shift, and go to state 10
+
+
+state 10
+
+    7 Function: Returntype FUNCTION . functionid OPAREN Parameterlist CPAREN OFUNC bodyoffunction return CFUNC
+
+    LITERAL  shift, and go to state 11
+
+    functionid  go to state 12
+
+
+state 11
+
+   14 functionid: LITERAL .
+
+    $default  reduce using rule 14 (functionid)
+
+
+state 12
+
+    7 Function: Returntype FUNCTION functionid . OPAREN Parameterlist CPAREN OFUNC bodyoffunction return CFUNC
+
+    OPAREN  shift, and go to state 13
+
+
+state 13
+
+    7 Function: Returntype FUNCTION functionid OPAREN . Parameterlist CPAREN OFUNC bodyoffunction return CFUNC
+
+    $default  reduce using rule 15 (Parameterlist)
+
+    Parameterlist  go to state 14
+
+
+state 14
+
+    7 Function: Returntype FUNCTION functionid OPAREN Parameterlist . CPAREN OFUNC bodyoffunction return CFUNC
+   16 Parameterlist: Parameterlist . Returntype List
+
+    CPAREN   shift, and go to state 15
+    BOOLEAN  shift, and go to state 6
+    INT      shift, and go to state 7
+
+    Returntype  go to state 16
+
+
+state 15
+
+    7 Function: Returntype FUNCTION functionid OPAREN Parameterlist CPAREN . OFUNC bodyoffunction return CFUNC
+
+    OFUNC  shift, and go to state 17
+
+
+state 16
+
+   16 Parameterlist: Parameterlist Returntype . List
+
+    SEMI     shift, and go to state 18
+    COMMA    shift, and go to state 19
+    LITERAL  shift, and go to state 20
+
+    $default  reduce using rule 20 (List)
+
+    List  go to state 21
+
+
+state 17
+
+    7 Function: Returntype FUNCTION functionid OPAREN Parameterlist CPAREN OFUNC . bodyoffunction return CFUNC
+
+    $default  reduce using rule 24 (bodyoffunction)
+
+    bodyoffunction  go to state 22
+
+
+state 18
+
+   19 List: SEMI .
+
+    $default  reduce using rule 19 (List)
+
+
+state 19
+
+   18 List: COMMA . List
+
+    SEMI     shift, and go to state 18
+    COMMA    shift, and go to state 19
+    LITERAL  shift, and go to state 20
+
+    LITERAL   [reduce using rule 20 (List)]
+    $default  reduce using rule 20 (List)
+
+    List  go to state 23
+
+
+state 20
+
+   17 List: LITERAL . List
+
+    SEMI     shift, and go to state 18
+    COMMA    shift, and go to state 19
+    LITERAL  shift, and go to state 20
+
+    LITERAL   [reduce using rule 20 (List)]
+    $default  reduce using rule 20 (List)
+
+    List  go to state 24
+
+
+state 21
+
+   16 Parameterlist: Parameterlist Returntype List .
+
+    $default  reduce using rule 16 (Parameterlist)
+
+
+state 22
+
+    7 Function: Returntype FUNCTION functionid OPAREN Parameterlist CPAREN OFUNC bodyoffunction . return CFUNC
+   21 bodyoffunction: bodyoffunction . variabledec
+   22               | bodyoffunction . Statement
+   23               | bodyoffunction . Function
+
+    BOOLEAN   shift, and go to state 25
+    IF        shift, and go to state 26
+    FOR       shift, and go to state 27
+    INTARRAY  shift, and go to state 28
+    RETURN    shift, and go to state 29
+    INT       shift, and go to state 30
+    LITERAL   shift, and go to state 31
+
+    Function     go to state 32
+    Returntype   go to state 9
+    Type         go to state 33
+    variabledec  go to state 34
+    Statement    go to state 35
+    if           go to state 36
+    for          go to state 37
+    return       go to state 38
+
+
+state 23
+
+   18 List: COMMA List .
+
+    $default  reduce using rule 18 (List)
+
+
+state 24
+
+   17 List: LITERAL List .
+
+    $default  reduce using rule 17 (List)
+
+
+state 25
+
+    9 Returntype: BOOLEAN .
+   11 Type: BOOLEAN .
+
+    VAR       reduce using rule 11 (Type)
+    $default  reduce using rule 9 (Returntype)
+
+
+state 26
+
+   29 if: IF . OPAREN expression CPAREN OFUNC bodyofnested CFUNC else
+
+    OPAREN  shift, and go to state 39
+
+
+state 27
+
+   32 for: FOR . OPAREN posstate OPAREN expression CPAREN posstate CPAREN OFUNC bodyofnested CFUNC
+
+    OPAREN  shift, and go to state 40
+
+
+state 28
+
+   12 Type: INTARRAY . OARRAY integerLiteral CARRAY
+
+    OARRAY  shift, and go to state 41
+
+
+state 29
+
+   45 return: RETURN . expression SEMI
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 54
+
+
+state 30
+
+    8 Returntype: INT .
+   10 Type: INT .
+
+    VAR       reduce using rule 10 (Type)
+    $default  reduce using rule 8 (Returntype)
+
+
+state 31
+
+   26 Statement: LITERAL . assignment
+
+    EQ      shift, and go to state 55
+    OARRAY  shift, and go to state 56
+
+    assignment  go to state 57
+
+
+state 32
+
+   23 bodyoffunction: bodyoffunction Function .
+
+    $default  reduce using rule 23 (bodyoffunction)
+
+
+state 33
+
+   25 variabledec: Type . VAR List
+
+    VAR  shift, and go to state 58
+
+
+state 34
+
+   21 bodyoffunction: bodyoffunction variabledec .
+
+    $default  reduce using rule 21 (bodyoffunction)
+
+
+state 35
+
+   22 bodyoffunction: bodyoffunction Statement .
+
+    $default  reduce using rule 22 (bodyoffunction)
+
+
+state 36
+
+   27 Statement: if .
+
+    $default  reduce using rule 27 (Statement)
+
+
+state 37
+
+   28 Statement: for .
+
+    $default  reduce using rule 28 (Statement)
+
+
+state 38
+
+    7 Function: Returntype FUNCTION functionid OPAREN Parameterlist CPAREN OFUNC bodyoffunction return . CFUNC
+
+    CFUNC  shift, and go to state 59
+
+
+state 39
+
+   29 if: IF OPAREN . expression CPAREN OFUNC bodyofnested CFUNC else
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 60
+
+
+state 40
+
+   32 for: FOR OPAREN . posstate OPAREN expression CPAREN posstate CPAREN OFUNC bodyofnested CFUNC
+
+    IF       shift, and go to state 26
+    FOR      shift, and go to state 27
+    LITERAL  shift, and go to state 31
+
+    $default  reduce using rule 33 (posstate)
+
+    Statement  go to state 61
+    if         go to state 36
+    for        go to state 37
+    posstate   go to state 62
+
+
+state 41
+
+   12 Type: INTARRAY OARRAY . integerLiteral CARRAY
+
+    DECIMAL  shift, and go to state 63
+
+    integerLiteral  go to state 64
+
+
+state 42
+
+   67 expression: MINUS . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 65
+
+
+state 43
+
+   69 expression: NOT . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 66
+
+
+state 44
+
+   70 expression: ABS . expression ABS
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 67
+
+
+state 45
+
+   59 expression: OPAREN . expression CPAREN
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 68
+
+
+state 46
+
+   62 expression: TRUE .
+
+    $default  reduce using rule 62 (expression)
+
+
+state 47
+
+   63 expression: FALSE .
+
+    $default  reduce using rule 63 (expression)
+
+
+state 48
+
+   60 expression: DECIMAL .
+
+    $default  reduce using rule 60 (expression)
+
+
+state 49
+
+   64 expression: HEX .
+
+    $default  reduce using rule 64 (expression)
+
+
+state 50
+
+   65 expression: OCT .
+
+    $default  reduce using rule 65 (expression)
+
+
+state 51
+
+   66 expression: BIN .
+
+    $default  reduce using rule 66 (expression)
+
+
+state 52
+
+   68 expression: ZERO .
+
+    $default  reduce using rule 68 (expression)
+
+
+state 53
+
+   61 expression: LITERAL . lit
+
+    OARRAY  shift, and go to state 69
+
+    $default  reduce using rule 71 (lit)
+
+    lit  go to state 70
+
+
+state 54
+
+   45 return: RETURN expression . SEMI
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    SEMI    shift, and go to state 81
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+
+state 55
+
+   37 assignment: EQ . dec SEMI
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 84
+
+    dec           go to state 85
+    functioncall  go to state 86
+    Equation      go to state 87
+    expression    go to state 88
+
+
+state 56
+
+   38 assignment: OARRAY . expression CARRAY EQ dec SEMI
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 89
+
+
+state 57
+
+   26 Statement: LITERAL assignment .
+
+    $default  reduce using rule 26 (Statement)
+
+
+state 58
+
+   25 variabledec: Type VAR . List
+
+    SEMI     shift, and go to state 18
+    COMMA    shift, and go to state 19
+    LITERAL  shift, and go to state 20
+
+    LITERAL   [reduce using rule 20 (List)]
+    $default  reduce using rule 20 (List)
+
+    List  go to state 90
+
+
+state 59
+
+    7 Function: Returntype FUNCTION functionid OPAREN Parameterlist CPAREN OFUNC bodyoffunction return CFUNC .
+
+    $default  reduce using rule 7 (Function)
+
+
+state 60
+
+   29 if: IF OPAREN expression . CPAREN OFUNC bodyofnested CFUNC else
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    CPAREN  shift, and go to state 91
+    MULT    shift, and go to state 83
+
+
+state 61
+
+   34 posstate: Statement .
+
+    $default  reduce using rule 34 (posstate)
+
+
+state 62
+
+   32 for: FOR OPAREN posstate . OPAREN expression CPAREN posstate CPAREN OFUNC bodyofnested CFUNC
+
+    OPAREN  shift, and go to state 92
+
+
+state 63
+
+   13 integerLiteral: DECIMAL .
+
+    $default  reduce using rule 13 (integerLiteral)
+
+
+state 64
+
+   12 Type: INTARRAY OARRAY integerLiteral . CARRAY
+
+    CARRAY  shift, and go to state 93
+
+
+state 65
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+   67           | MINUS expression .
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 67 (expression)]
+    NE        [reduce using rule 67 (expression)]
+    LT        [reduce using rule 67 (expression)]
+    LE        [reduce using rule 67 (expression)]
+    GT        [reduce using rule 67 (expression)]
+    GE        [reduce using rule 67 (expression)]
+    PLUS      [reduce using rule 67 (expression)]
+    MINUS     [reduce using rule 67 (expression)]
+    DIVIDE    [reduce using rule 67 (expression)]
+    AND       [reduce using rule 67 (expression)]
+    ABS       [reduce using rule 67 (expression)]
+    MULT      [reduce using rule 67 (expression)]
+    $default  reduce using rule 67 (expression)
+
+
+state 66
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+   69           | NOT expression .
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 69 (expression)]
+    NE        [reduce using rule 69 (expression)]
+    LT        [reduce using rule 69 (expression)]
+    LE        [reduce using rule 69 (expression)]
+    GT        [reduce using rule 69 (expression)]
+    GE        [reduce using rule 69 (expression)]
+    PLUS      [reduce using rule 69 (expression)]
+    MINUS     [reduce using rule 69 (expression)]
+    DIVIDE    [reduce using rule 69 (expression)]
+    AND       [reduce using rule 69 (expression)]
+    ABS       [reduce using rule 69 (expression)]
+    MULT      [reduce using rule 69 (expression)]
+    $default  reduce using rule 69 (expression)
+
+
+state 67
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+   70           | ABS expression . ABS
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 94
+    MULT    shift, and go to state 83
+
+
+state 68
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+   59           | OPAREN expression . CPAREN
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    CPAREN  shift, and go to state 95
+    MULT    shift, and go to state 83
+
+
+state 69
+
+   72 lit: OARRAY . expression CARRAY
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 96
+
+
+state 70
+
+   61 expression: LITERAL lit .
+
+    $default  reduce using rule 61 (expression)
+
+
+state 71
+
+   55 expression: expression DEQ . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 97
+
+
+state 72
+
+   54 expression: expression NE . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 98
+
+
+state 73
+
+   52 expression: expression LT . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 99
+
+
+state 74
+
+   53 expression: expression LE . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 100
+
+
+state 75
+
+   50 expression: expression GT . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 101
+
+
+state 76
+
+   51 expression: expression GE . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 102
+
+
+state 77
+
+   47 expression: expression PLUS . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 103
+
+
+state 78
+
+   56 expression: expression MINUS . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 104
+
+
+state 79
+
+   57 expression: expression DIVIDE . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 105
+
+
+state 80
+
+   49 expression: expression AND . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 106
+
+
+state 81
+
+   45 return: RETURN expression SEMI .
+
+    $default  reduce using rule 45 (return)
+
+
+state 82
+
+   48 expression: expression ABS . ABS expression
+
+    ABS  shift, and go to state 107
+
+
+state 83
+
+   58 expression: expression MULT . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 108
+
+
+state 84
+
+   41 functioncall: LITERAL . OPAREN flist CPAREN
+   61 expression: LITERAL . lit
+
+    OPAREN  shift, and go to state 109
+    OARRAY  shift, and go to state 69
+
+    $default  reduce using rule 71 (lit)
+
+    lit  go to state 70
+
+
+state 85
+
+   37 assignment: EQ dec . SEMI
+
+    SEMI  shift, and go to state 110
+
+
+state 86
+
+   40 dec: functioncall .
+
+    $default  reduce using rule 40 (dec)
+
+
+state 87
+
+   39 dec: Equation .
+
+    $default  reduce using rule 39 (dec)
+
+
+state 88
+
+   46 Equation: expression .
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    $default  reduce using rule 46 (Equation)
+
+
+state 89
+
+   38 assignment: OARRAY expression . CARRAY EQ dec SEMI
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    CARRAY  shift, and go to state 111
+    MULT    shift, and go to state 83
+
+
+state 90
+
+   25 variabledec: Type VAR List .
+
+    $default  reduce using rule 25 (variabledec)
+
+
+state 91
+
+   29 if: IF OPAREN expression CPAREN . OFUNC bodyofnested CFUNC else
+
+    OFUNC  shift, and go to state 112
+
+
+state 92
+
+   32 for: FOR OPAREN posstate OPAREN . expression CPAREN posstate CPAREN OFUNC bodyofnested CFUNC
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 113
+
+
+state 93
+
+   12 Type: INTARRAY OARRAY integerLiteral CARRAY .
+
+    $default  reduce using rule 12 (Type)
+
+
+state 94
+
+   48 expression: expression ABS . ABS expression
+   70           | ABS expression ABS .
+
+    ABS  shift, and go to state 107
+
+    ABS       [reduce using rule 70 (expression)]
+    $default  reduce using rule 70 (expression)
+
+
+state 95
+
+   59 expression: OPAREN expression CPAREN .
+
+    $default  reduce using rule 59 (expression)
+
+
+state 96
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+   72 lit: OARRAY expression . CARRAY
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    CARRAY  shift, and go to state 114
+    MULT    shift, and go to state 83
+
+
+state 97
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   55           | expression DEQ expression .
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 55 (expression)]
+    NE        [reduce using rule 55 (expression)]
+    LT        [reduce using rule 55 (expression)]
+    LE        [reduce using rule 55 (expression)]
+    GT        [reduce using rule 55 (expression)]
+    GE        [reduce using rule 55 (expression)]
+    PLUS      [reduce using rule 55 (expression)]
+    MINUS     [reduce using rule 55 (expression)]
+    DIVIDE    [reduce using rule 55 (expression)]
+    AND       [reduce using rule 55 (expression)]
+    ABS       [reduce using rule 55 (expression)]
+    MULT      [reduce using rule 55 (expression)]
+    $default  reduce using rule 55 (expression)
+
+
+state 98
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   54           | expression NE expression .
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 54 (expression)]
+    NE        [reduce using rule 54 (expression)]
+    LT        [reduce using rule 54 (expression)]
+    LE        [reduce using rule 54 (expression)]
+    GT        [reduce using rule 54 (expression)]
+    GE        [reduce using rule 54 (expression)]
+    PLUS      [reduce using rule 54 (expression)]
+    MINUS     [reduce using rule 54 (expression)]
+    DIVIDE    [reduce using rule 54 (expression)]
+    AND       [reduce using rule 54 (expression)]
+    ABS       [reduce using rule 54 (expression)]
+    MULT      [reduce using rule 54 (expression)]
+    $default  reduce using rule 54 (expression)
+
+
+state 99
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   52           | expression LT expression .
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 52 (expression)]
+    NE        [reduce using rule 52 (expression)]
+    LT        [reduce using rule 52 (expression)]
+    LE        [reduce using rule 52 (expression)]
+    GT        [reduce using rule 52 (expression)]
+    GE        [reduce using rule 52 (expression)]
+    PLUS      [reduce using rule 52 (expression)]
+    MINUS     [reduce using rule 52 (expression)]
+    DIVIDE    [reduce using rule 52 (expression)]
+    AND       [reduce using rule 52 (expression)]
+    ABS       [reduce using rule 52 (expression)]
+    MULT      [reduce using rule 52 (expression)]
+    $default  reduce using rule 52 (expression)
+
+
+state 100
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   53           | expression LE expression .
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 53 (expression)]
+    NE        [reduce using rule 53 (expression)]
+    LT        [reduce using rule 53 (expression)]
+    LE        [reduce using rule 53 (expression)]
+    GT        [reduce using rule 53 (expression)]
+    GE        [reduce using rule 53 (expression)]
+    PLUS      [reduce using rule 53 (expression)]
+    MINUS     [reduce using rule 53 (expression)]
+    DIVIDE    [reduce using rule 53 (expression)]
+    AND       [reduce using rule 53 (expression)]
+    ABS       [reduce using rule 53 (expression)]
+    MULT      [reduce using rule 53 (expression)]
+    $default  reduce using rule 53 (expression)
+
+
+state 101
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   50           | expression GT expression .
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 50 (expression)]
+    NE        [reduce using rule 50 (expression)]
+    LT        [reduce using rule 50 (expression)]
+    LE        [reduce using rule 50 (expression)]
+    GT        [reduce using rule 50 (expression)]
+    GE        [reduce using rule 50 (expression)]
+    PLUS      [reduce using rule 50 (expression)]
+    MINUS     [reduce using rule 50 (expression)]
+    DIVIDE    [reduce using rule 50 (expression)]
+    AND       [reduce using rule 50 (expression)]
+    ABS       [reduce using rule 50 (expression)]
+    MULT      [reduce using rule 50 (expression)]
+    $default  reduce using rule 50 (expression)
+
+
+state 102
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   51           | expression GE expression .
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 51 (expression)]
+    NE        [reduce using rule 51 (expression)]
+    LT        [reduce using rule 51 (expression)]
+    LE        [reduce using rule 51 (expression)]
+    GT        [reduce using rule 51 (expression)]
+    GE        [reduce using rule 51 (expression)]
+    PLUS      [reduce using rule 51 (expression)]
+    MINUS     [reduce using rule 51 (expression)]
+    DIVIDE    [reduce using rule 51 (expression)]
+    AND       [reduce using rule 51 (expression)]
+    ABS       [reduce using rule 51 (expression)]
+    MULT      [reduce using rule 51 (expression)]
+    $default  reduce using rule 51 (expression)
+
+
+state 103
+
+   47 expression: expression . PLUS expression
+   47           | expression PLUS expression .
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 47 (expression)]
+    NE        [reduce using rule 47 (expression)]
+    LT        [reduce using rule 47 (expression)]
+    LE        [reduce using rule 47 (expression)]
+    GT        [reduce using rule 47 (expression)]
+    GE        [reduce using rule 47 (expression)]
+    PLUS      [reduce using rule 47 (expression)]
+    MINUS     [reduce using rule 47 (expression)]
+    DIVIDE    [reduce using rule 47 (expression)]
+    AND       [reduce using rule 47 (expression)]
+    ABS       [reduce using rule 47 (expression)]
+    MULT      [reduce using rule 47 (expression)]
+    $default  reduce using rule 47 (expression)
+
+
+state 104
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   56           | expression MINUS expression .
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 56 (expression)]
+    NE        [reduce using rule 56 (expression)]
+    LT        [reduce using rule 56 (expression)]
+    LE        [reduce using rule 56 (expression)]
+    GT        [reduce using rule 56 (expression)]
+    GE        [reduce using rule 56 (expression)]
+    PLUS      [reduce using rule 56 (expression)]
+    MINUS     [reduce using rule 56 (expression)]
+    DIVIDE    [reduce using rule 56 (expression)]
+    AND       [reduce using rule 56 (expression)]
+    ABS       [reduce using rule 56 (expression)]
+    MULT      [reduce using rule 56 (expression)]
+    $default  reduce using rule 56 (expression)
+
+
+state 105
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   57           | expression DIVIDE expression .
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 57 (expression)]
+    NE        [reduce using rule 57 (expression)]
+    LT        [reduce using rule 57 (expression)]
+    LE        [reduce using rule 57 (expression)]
+    GT        [reduce using rule 57 (expression)]
+    GE        [reduce using rule 57 (expression)]
+    PLUS      [reduce using rule 57 (expression)]
+    MINUS     [reduce using rule 57 (expression)]
+    DIVIDE    [reduce using rule 57 (expression)]
+    AND       [reduce using rule 57 (expression)]
+    ABS       [reduce using rule 57 (expression)]
+    MULT      [reduce using rule 57 (expression)]
+    $default  reduce using rule 57 (expression)
+
+
+state 106
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   49           | expression AND expression .
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 49 (expression)]
+    NE        [reduce using rule 49 (expression)]
+    LT        [reduce using rule 49 (expression)]
+    LE        [reduce using rule 49 (expression)]
+    GT        [reduce using rule 49 (expression)]
+    GE        [reduce using rule 49 (expression)]
+    PLUS      [reduce using rule 49 (expression)]
+    MINUS     [reduce using rule 49 (expression)]
+    DIVIDE    [reduce using rule 49 (expression)]
+    AND       [reduce using rule 49 (expression)]
+    ABS       [reduce using rule 49 (expression)]
+    MULT      [reduce using rule 49 (expression)]
+    $default  reduce using rule 49 (expression)
+
+
+state 107
+
+   48 expression: expression ABS ABS . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 115
+
+
+state 108
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+   58           | expression MULT expression .
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 58 (expression)]
+    NE        [reduce using rule 58 (expression)]
+    LT        [reduce using rule 58 (expression)]
+    LE        [reduce using rule 58 (expression)]
+    GT        [reduce using rule 58 (expression)]
+    GE        [reduce using rule 58 (expression)]
+    PLUS      [reduce using rule 58 (expression)]
+    MINUS     [reduce using rule 58 (expression)]
+    DIVIDE    [reduce using rule 58 (expression)]
+    AND       [reduce using rule 58 (expression)]
+    ABS       [reduce using rule 58 (expression)]
+    MULT      [reduce using rule 58 (expression)]
+    $default  reduce using rule 58 (expression)
+
+
+state 109
+
+   41 functioncall: LITERAL OPAREN . flist CPAREN
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    COMMA    shift, and go to state 116
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    $default  reduce using rule 42 (flist)
+
+    flist       go to state 117
+    expression  go to state 118
+
+
+state 110
+
+   37 assignment: EQ dec SEMI .
+
+    $default  reduce using rule 37 (assignment)
+
+
+state 111
+
+   38 assignment: OARRAY expression CARRAY . EQ dec SEMI
+
+    EQ  shift, and go to state 119
+
+
+state 112
+
+   29 if: IF OPAREN expression CPAREN OFUNC . bodyofnested CFUNC else
+
+    IF       shift, and go to state 26
+    FOR      shift, and go to state 27
+    LITERAL  shift, and go to state 31
+
+    $default  reduce using rule 35 (bodyofnested)
+
+    Statement     go to state 120
+    if            go to state 36
+    for           go to state 37
+    bodyofnested  go to state 121
+
+
+state 113
+
+   32 for: FOR OPAREN posstate OPAREN expression . CPAREN posstate CPAREN OFUNC bodyofnested CFUNC
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    CPAREN  shift, and go to state 122
+    MULT    shift, and go to state 83
+
+
+state 114
+
+   72 lit: OARRAY expression CARRAY .
+
+    $default  reduce using rule 72 (lit)
+
+
+state 115
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   48           | expression ABS ABS expression .
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 48 (expression)]
+    NE        [reduce using rule 48 (expression)]
+    LT        [reduce using rule 48 (expression)]
+    LE        [reduce using rule 48 (expression)]
+    GT        [reduce using rule 48 (expression)]
+    GE        [reduce using rule 48 (expression)]
+    PLUS      [reduce using rule 48 (expression)]
+    MINUS     [reduce using rule 48 (expression)]
+    DIVIDE    [reduce using rule 48 (expression)]
+    AND       [reduce using rule 48 (expression)]
+    ABS       [reduce using rule 48 (expression)]
+    MULT      [reduce using rule 48 (expression)]
+    $default  reduce using rule 48 (expression)
+
+
+state 116
+
+   44 flist: COMMA . flist
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    COMMA    shift, and go to state 116
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    $default  reduce using rule 42 (flist)
+
+    flist       go to state 123
+    expression  go to state 118
+
+
+state 117
+
+   41 functioncall: LITERAL OPAREN flist . CPAREN
+
+    CPAREN  shift, and go to state 124
+
+
+state 118
+
+   43 flist: expression . flist
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+
+    DEQ      shift, and go to state 71
+    NE       shift, and go to state 72
+    LT       shift, and go to state 73
+    LE       shift, and go to state 74
+    GT       shift, and go to state 75
+    GE       shift, and go to state 76
+    PLUS     shift, and go to state 77
+    MINUS    shift, and go to state 125
+    DIVIDE   shift, and go to state 79
+    AND      shift, and go to state 80
+    NOT      shift, and go to state 43
+    COMMA    shift, and go to state 116
+    ABS      shift, and go to state 126
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    MULT     shift, and go to state 83
+    LITERAL  shift, and go to state 53
+
+    $default  reduce using rule 42 (flist)
+
+    flist       go to state 127
+    expression  go to state 118
+
+
+state 119
+
+   38 assignment: OARRAY expression CARRAY EQ . dec SEMI
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 84
+
+    dec           go to state 128
+    functioncall  go to state 86
+    Equation      go to state 87
+    expression    go to state 88
+
+
+state 120
+
+   36 bodyofnested: Statement . bodyofnested
+
+    IF       shift, and go to state 26
+    FOR      shift, and go to state 27
+    LITERAL  shift, and go to state 31
+
+    $default  reduce using rule 35 (bodyofnested)
+
+    Statement     go to state 120
+    if            go to state 36
+    for           go to state 37
+    bodyofnested  go to state 129
+
+
+state 121
+
+   29 if: IF OPAREN expression CPAREN OFUNC bodyofnested . CFUNC else
+
+    CFUNC  shift, and go to state 130
+
+
+state 122
+
+   32 for: FOR OPAREN posstate OPAREN expression CPAREN . posstate CPAREN OFUNC bodyofnested CFUNC
+
+    IF       shift, and go to state 26
+    FOR      shift, and go to state 27
+    LITERAL  shift, and go to state 31
+
+    $default  reduce using rule 33 (posstate)
+
+    Statement  go to state 61
+    if         go to state 36
+    for        go to state 37
+    posstate   go to state 131
+
+
+state 123
+
+   44 flist: COMMA flist .
+
+    $default  reduce using rule 44 (flist)
+
+
+state 124
+
+   41 functioncall: LITERAL OPAREN flist CPAREN .
+
+    $default  reduce using rule 41 (functioncall)
+
+
+state 125
+
+   56 expression: expression MINUS . expression
+   67           | MINUS . expression
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 132
+
+
+state 126
+
+   48 expression: expression ABS . ABS expression
+   70           | ABS . expression ABS
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 133
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 67
+
+
+state 127
+
+   43 flist: expression flist .
+
+    $default  reduce using rule 43 (flist)
+
+
+state 128
+
+   38 assignment: OARRAY expression CARRAY EQ dec . SEMI
+
+    SEMI  shift, and go to state 134
+
+
+state 129
+
+   36 bodyofnested: Statement bodyofnested .
+
+    $default  reduce using rule 36 (bodyofnested)
+
+
+state 130
+
+   29 if: IF OPAREN expression CPAREN OFUNC bodyofnested CFUNC . else
+
+    ELSE  shift, and go to state 135
+
+    $default  reduce using rule 30 (else)
+
+    else  go to state 136
+
+
+state 131
+
+   32 for: FOR OPAREN posstate OPAREN expression CPAREN posstate . CPAREN OFUNC bodyofnested CFUNC
+
+    CPAREN  shift, and go to state 137
+
+
+state 132
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   56           | expression MINUS expression .
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+   67           | MINUS expression .
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 82
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 56 (expression)]
+    DEQ       [reduce using rule 67 (expression)]
+    NE        [reduce using rule 56 (expression)]
+    NE        [reduce using rule 67 (expression)]
+    LT        [reduce using rule 56 (expression)]
+    LT        [reduce using rule 67 (expression)]
+    LE        [reduce using rule 56 (expression)]
+    LE        [reduce using rule 67 (expression)]
+    GT        [reduce using rule 56 (expression)]
+    GT        [reduce using rule 67 (expression)]
+    GE        [reduce using rule 56 (expression)]
+    GE        [reduce using rule 67 (expression)]
+    PLUS      [reduce using rule 56 (expression)]
+    PLUS      [reduce using rule 67 (expression)]
+    MINUS     [reduce using rule 56 (expression)]
+    MINUS     [reduce using rule 67 (expression)]
+    DIVIDE    [reduce using rule 56 (expression)]
+    DIVIDE    [reduce using rule 67 (expression)]
+    AND       [reduce using rule 56 (expression)]
+    AND       [reduce using rule 67 (expression)]
+    NOT       reduce using rule 56 (expression)
+    NOT       [reduce using rule 67 (expression)]
+    COMMA     reduce using rule 56 (expression)
+    COMMA     [reduce using rule 67 (expression)]
+    ABS       [reduce using rule 56 (expression)]
+    ABS       [reduce using rule 67 (expression)]
+    OPAREN    reduce using rule 56 (expression)
+    OPAREN    [reduce using rule 67 (expression)]
+    CPAREN    reduce using rule 56 (expression)
+    CPAREN    [reduce using rule 67 (expression)]
+    TRUE      reduce using rule 56 (expression)
+    TRUE      [reduce using rule 67 (expression)]
+    FALSE     reduce using rule 56 (expression)
+    FALSE     [reduce using rule 67 (expression)]
+    DECIMAL   reduce using rule 56 (expression)
+    DECIMAL   [reduce using rule 67 (expression)]
+    HEX       reduce using rule 56 (expression)
+    HEX       [reduce using rule 67 (expression)]
+    OCT       reduce using rule 56 (expression)
+    OCT       [reduce using rule 67 (expression)]
+    BIN       reduce using rule 56 (expression)
+    BIN       [reduce using rule 67 (expression)]
+    ZERO      reduce using rule 56 (expression)
+    ZERO      [reduce using rule 67 (expression)]
+    MULT      [reduce using rule 56 (expression)]
+    MULT      [reduce using rule 67 (expression)]
+    LITERAL   reduce using rule 56 (expression)
+    LITERAL   [reduce using rule 67 (expression)]
+    $default  reduce using rule 56 (expression)
+
+
+state 133
+
+   48 expression: expression ABS ABS . expression
+   70           | ABS . expression ABS
+
+    MINUS    shift, and go to state 42
+    NOT      shift, and go to state 43
+    ABS      shift, and go to state 44
+    OPAREN   shift, and go to state 45
+    TRUE     shift, and go to state 46
+    FALSE    shift, and go to state 47
+    DECIMAL  shift, and go to state 48
+    HEX      shift, and go to state 49
+    OCT      shift, and go to state 50
+    BIN      shift, and go to state 51
+    ZERO     shift, and go to state 52
+    LITERAL  shift, and go to state 53
+
+    expression  go to state 138
+
+
+state 134
+
+   38 assignment: OARRAY expression CARRAY EQ dec SEMI .
+
+    $default  reduce using rule 38 (assignment)
+
+
+state 135
+
+   31 else: ELSE . OFUNC bodyofnested CFUNC
+
+    OFUNC  shift, and go to state 139
+
+
+state 136
+
+   29 if: IF OPAREN expression CPAREN OFUNC bodyofnested CFUNC else .
+
+    $default  reduce using rule 29 (if)
+
+
+state 137
+
+   32 for: FOR OPAREN posstate OPAREN expression CPAREN posstate CPAREN . OFUNC bodyofnested CFUNC
+
+    OFUNC  shift, and go to state 140
+
+
+state 138
+
+   47 expression: expression . PLUS expression
+   48           | expression . ABS ABS expression
+   48           | expression ABS ABS expression .
+   49           | expression . AND expression
+   50           | expression . GT expression
+   51           | expression . GE expression
+   52           | expression . LT expression
+   53           | expression . LE expression
+   54           | expression . NE expression
+   55           | expression . DEQ expression
+   56           | expression . MINUS expression
+   57           | expression . DIVIDE expression
+   58           | expression . MULT expression
+   70           | ABS expression . ABS
+
+    DEQ     shift, and go to state 71
+    NE      shift, and go to state 72
+    LT      shift, and go to state 73
+    LE      shift, and go to state 74
+    GT      shift, and go to state 75
+    GE      shift, and go to state 76
+    PLUS    shift, and go to state 77
+    MINUS   shift, and go to state 78
+    DIVIDE  shift, and go to state 79
+    AND     shift, and go to state 80
+    ABS     shift, and go to state 94
+    MULT    shift, and go to state 83
+
+    DEQ       [reduce using rule 48 (expression)]
+    NE        [reduce using rule 48 (expression)]
+    LT        [reduce using rule 48 (expression)]
+    LE        [reduce using rule 48 (expression)]
+    GT        [reduce using rule 48 (expression)]
+    GE        [reduce using rule 48 (expression)]
+    PLUS      [reduce using rule 48 (expression)]
+    MINUS     [reduce using rule 48 (expression)]
+    DIVIDE    [reduce using rule 48 (expression)]
+    AND       [reduce using rule 48 (expression)]
+    ABS       [reduce using rule 48 (expression)]
+    MULT      [reduce using rule 48 (expression)]
+    $default  reduce using rule 48 (expression)
+
+
+state 139
+
+   31 else: ELSE OFUNC . bodyofnested CFUNC
+
+    IF       shift, and go to state 26
+    FOR      shift, and go to state 27
+    LITERAL  shift, and go to state 31
+
+    $default  reduce using rule 35 (bodyofnested)
+
+    Statement     go to state 120
+    if            go to state 36
+    for           go to state 37
+    bodyofnested  go to state 141
+
+
+state 140
+
+   32 for: FOR OPAREN posstate OPAREN expression CPAREN posstate CPAREN OFUNC . bodyofnested CFUNC
+
+    IF       shift, and go to state 26
+    FOR      shift, and go to state 27
+    LITERAL  shift, and go to state 31
+
+    $default  reduce using rule 35 (bodyofnested)
+
+    Statement     go to state 120
+    if            go to state 36
+    for           go to state 37
+    bodyofnested  go to state 142
+
+
+state 141
+
+   31 else: ELSE OFUNC bodyofnested . CFUNC
+
+    CFUNC  shift, and go to state 143
+
+
+state 142
+
+   32 for: FOR OPAREN posstate OPAREN expression CPAREN posstate CPAREN OFUNC bodyofnested . CFUNC
+
+    CFUNC  shift, and go to state 144
+
+
+state 143
+
+   31 else: ELSE OFUNC bodyofnested CFUNC .
+
+    $default  reduce using rule 31 (else)
+
+
+state 144
+
+   32 for: FOR OPAREN posstate OPAREN expression CPAREN posstate CPAREN OFUNC bodyofnested CFUNC .
+
+    $default  reduce using rule 32 (for)

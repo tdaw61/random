@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/cs50/y7/!svn/ver/117/trunk/src/Handler
+END
+NormEquation.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cs50/y7/!svn/ver/103/trunk/src/Handler/NormEquation.java
+END
+HandlerMain.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/cs50/y7/!svn/ver/117/trunk/src/Handler/HandlerMain.java
+END
+PolynomialEquation.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/cs50/y7/!svn/ver/103/trunk/src/Handler/PolynomialEquation.java
+END
+TrigEquation.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/cs50/y7/!svn/ver/103/trunk/src/Handler/TrigEquation.java
+END
+EquationObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cs50/y7/!svn/ver/103/trunk/src/Handler/EquationObject.java
+END

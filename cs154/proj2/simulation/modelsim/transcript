@@ -1,0 +1,212 @@
+# Compile of proj2.vo was successful.
+# Compile of proj2.vt was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim +pulse_e/0 +pulse_r/0 -L altera_mf_ver -L lpm_ver -L stratixii_ver -sdfnoerror -sdfnowarn work.proj2_vlg_tst
+# vsim +pulse_e/0 +pulse_r/0 -L altera_mf_ver -L lpm_ver -L stratixii_ver -sdfnoerror -sdfnowarn work.proj2_vlg_tst 
+# Loading work.proj2_vlg_tst
+# Loading work.proj2
+# Loading stratixii_ver.stratixii_lcell_comb
+# Loading stratixii_ver.stratixii_lcell_ff
+# Loading stratixii_ver.stratixii_io
+# Loading stratixii_ver.stratixii_io_register
+# Loading stratixii_ver.stratixii_io_latch
+# Loading stratixii_ver.stratixii_and1
+# Loading stratixii_ver.stratixii_mux21
+# Loading stratixii_ver.stratixii_asynch_io
+# Loading stratixii_ver.stratixii_clkctrl
+# Loading stratixii_ver.stratixii_mux41
+# Loading stratixii_ver.stratixii_ena_reg
+# Loading stratixii_ver.stratixii_ram_block
+# Loading stratixii_ver.stratixii_ram_register
+# Loading stratixii_ver.stratixii_ram_pulse_generator
+# SDF 6.4a Compiler 2008.08 Oct 22 2008
+# 
+# Loading instances from proj2_v.sdo
+# Loading timing data from proj2_v.sdo
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: wnelson  Hostname: 556ECI13  ProcessID: 3588
+#           Attempting to use alternate WLF file "./wlft9sxerm".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft9sxerm
+# ** Note: ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft9sxerm
+# SDF Backannotation Successfully Completed.
+#    Time: 0 ps  Iteration: 0  Region: /proj2_vlg_tst  File: X:/cs154/proj2/simulation/modelsim/proj2.vt
+add wave sim:/proj2_vlg_tst/*
+run
+# Running testbench
+run
+run
+run
+run
+run
+run
+run
+run
+quit -sim
+# Compile of proj2.vo was successful.
+vsim +pulse_e/0 +pulse_r/0 -L altera_mf_ver -L lpm_ver -L stratixii_ver -sdfnoerror -sdfnowarn work.proj2_vlg_tst
+# vsim +pulse_e/0 +pulse_r/0 -L altera_mf_ver -L lpm_ver -L stratixii_ver -sdfnoerror -sdfnowarn work.proj2_vlg_tst 
+# Loading work.proj2_vlg_tst
+# Loading work.proj2
+# Loading stratixii_ver.stratixii_lcell_comb
+# Loading stratixii_ver.stratixii_lcell_ff
+# Loading stratixii_ver.stratixii_io
+# Loading stratixii_ver.stratixii_io_register
+# Loading stratixii_ver.stratixii_io_latch
+# Loading stratixii_ver.stratixii_and1
+# Loading stratixii_ver.stratixii_mux21
+# Loading stratixii_ver.stratixii_asynch_io
+# Loading stratixii_ver.stratixii_clkctrl
+# Loading stratixii_ver.stratixii_mux41
+# Loading stratixii_ver.stratixii_ena_reg
+# Loading stratixii_ver.stratixii_ram_block
+# Loading stratixii_ver.stratixii_ram_register
+# Loading stratixii_ver.stratixii_ram_pulse_generator
+# SDF 6.4a Compiler 2008.08 Oct 22 2008
+# 
+# Loading instances from proj2_v.sdo
+# Loading timing data from proj2_v.sdo
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: wnelson  Hostname: 556ECI13  ProcessID: 3588
+#           Attempting to use alternate WLF file "./wlft30z4gv".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft30z4gv
+# ** Note: ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft30z4gv
+# SDF Backannotation Successfully Completed.
+#    Time: 0 ps  Iteration: 0  Region: /proj2_vlg_tst  File: X:/cs154/proj2/simulation/modelsim/proj2.vt
+add wave sim:/proj2_vlg_tst/*
+run
+# Running testbench
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+quit -sim
+# Compile of proj2.vo was successful.
+vsim +pulse_e/0 +pulse_r/0 -L altera_mf_ver -L lpm_ver -L stratixii_ver -sdfnoerror -sdfnowarn work.proj2_vlg_tst
+# vsim +pulse_e/0 +pulse_r/0 -L altera_mf_ver -L lpm_ver -L stratixii_ver -sdfnoerror -sdfnowarn work.proj2_vlg_tst 
+# Loading work.proj2_vlg_tst
+# Loading work.proj2
+# Loading stratixii_ver.stratixii_lcell_comb
+# Loading stratixii_ver.stratixii_lcell_ff
+# Loading stratixii_ver.stratixii_io
+# Loading stratixii_ver.stratixii_io_register
+# Loading stratixii_ver.stratixii_io_latch
+# Loading stratixii_ver.stratixii_and1
+# Loading stratixii_ver.stratixii_mux21
+# Loading stratixii_ver.stratixii_asynch_io
+# Loading stratixii_ver.stratixii_clkctrl
+# Loading stratixii_ver.stratixii_mux41
+# Loading stratixii_ver.stratixii_ena_reg
+# Loading stratixii_ver.stratixii_ram_block
+# Loading stratixii_ver.stratixii_ram_register
+# Loading stratixii_ver.stratixii_ram_pulse_generator
+# SDF 6.4a Compiler 2008.08 Oct 22 2008
+# 
+# Loading instances from proj2_v.sdo
+# Loading timing data from proj2_v.sdo
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: wnelson  Hostname: 556ECI13  ProcessID: 3588
+#           Attempting to use alternate WLF file "./wlft0mke6m".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft0mke6m
+# ** Note: ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft0mke6m
+# SDF Backannotation Successfully Completed.
+#    Time: 0 ps  Iteration: 0  Region: /proj2_vlg_tst  File: X:/cs154/proj2/simulation/modelsim/proj2.vt
+add wave sim:/proj2_vlg_tst/*
+run
+# Running testbench
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run

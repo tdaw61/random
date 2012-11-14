@@ -1,0 +1,33 @@
+Taylor Daw
+3402948
+
+
+Analysis of the Numberpicker and Wheel data
+
+The result of the ttest turned out to be .0081971979.
+
+By looking at the tables, it is obvious that the two interfaces performed in a very different manner.
+The times that were experienced were far different between the two interfaces, but within the
+actual interface the individual testers experienced similar times.  
+
+This result clearly shows that it is far below a calculated t from a T table with any
+range of significance, and so the means are clearly different from each other.  
+This is very clear not only from the ttest, but by simply looking at the actual
+entries in the table as well. The average of the three inputs for the numberpicker are clearly
+higher in all three cases, and the two series of data don't even overlap.  This 
+will clearly show up in the ttest as a major discrepancy, and the Numberpicker is shown to be the 
+slower of the two.  
+
+In looking at the pre-test and post-test questionairre answers, first off the pre-test results are 
+very similar.  This sets up a possibility for the results to be closer then if the test subjects 
+were more randomly selected.  The trend for the post-test questions follow closely with the actual
+numerical results of the testing, the users all found that the wheel was much easier to use, and 
+felt much more comfortable with this format.  The other trends and patterns are harder to make out, 
+because the results do not exactly fall in line with expectations according to the post-test questions.
+The main general trend is the most important finding though, and that is the fact that the wheel was
+a better performer and it was preferred by all users involved.   
+
+Although the usage of the ttest proved beyond a doubt that the two groups of data were not related, 
+the initial results were very spread and that could have been deducted by simply looking at the table.
+It seems that all users involved not only prefer the wheel interface, but the acutal performance is 
+substantially better as well.

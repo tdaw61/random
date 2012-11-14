@@ -1,0 +1,240 @@
+%{
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <iostream>
+	#define YYDEBUG 1
+
+	int yylex(void);
+	void yyerror(const char *);
+%}
+
+%error-verbose
+
+%start ROOT
+
+%token COMMENT;
+%token EQ;
+%token DEQ;
+%token NE;
+%token LT;
+%token LE;
+%token GT;
+%token GE;
+%token PLUS;
+%token MINUS;
+%token DIVIDE;
+%token AND;
+%token OR;
+%token NOT;
+%token SEMI;
+%token COMMA;
+%token ABS;
+%token OFUNC;
+%token CFUNC;
+%token OPAREN;
+%token CPAREN;
+%token OARRAY;
+%token CARRAY;
+%token BOOLEAN;
+%token IF;
+%token ELSE;
+%token FOR;
+%token FUNCTION;
+%token INTARRAY;
+%token RETURN;
+%token TRUE;
+%token FALSE;
+%token INT;
+%token DECIMAL;
+%token HEX;
+%token OCT;
+%token BIN;
+%token ZERO;
+%token VAR;
+%token MULT;
+%token LITERAL;
+%token END;
+
+/* WRITE ME: put all your type definitions here*/
+/* WRITE ME: put all your precedence/associativity rules here*/
+
+%%
+
+/* WRITE ME: This is the language from Project 1. You need
+			 to put the productions for the grammar for the
+			 language for this project here*/
+ROOT:	
+	| ROOT Program 
+	;
+
+Program : Functions 
+	{
+		ast = new ProgramImpl($1.u_func_list);
+	}
+	;
+
+Functions:
+	{$$.u_func_list = new list<Func_ptr>();}
+	| Functions Function
+	{
+		$$.u_func_list->push_back($2.u_func);
+		$$ = $1;
+	}
+	;
+
+Function: Returntype KEY_FUNC IDENT PAREN_O Parameterlist PAREN_C CURLY_O bodyoffunction return CFUNC
+	{
+		$$.u_func = new FuncImpl(
+			$1.u_type,
+			new SynName($3.u_base_charptr),
+			$5.u_decl_list,
+			$8.u_function_block);
+	}
+	;
+
+Returntype:
+        KEY_BOOL {$$.u_type = new TBoolean();}
+        | KEY_INT {$$.u_type = new TInteger();}
+	;
+
+Type:
+        KEY_INT {$$.u_type = new TInteger();} 
+        | BOOLEAN {$$.u_type = new TBoolean();}
+        | INTARRAY OARRAY integerLiteral CARRAY //DO DAT
+        ;
+
+
+integerLiteral:
+	DECIMAL { $$.u_type = new TInteger();}
+	;
+
+functionid:
+	IDENT { $$.u_type = new TIdendifier();}
+	;
+
+Parameterlist
+	: /* empty */ 
+	| Parameterlist Returntype List
+	;
+
+List	: LITERAL List
+	| COMMA List
+	| SEMI
+	|
+	;
+
+bodyoffunction 	
+	:
+	var_decls func_decls stmts {
+	$$.u_function_block = new Function_blockImpl(
+		new list<Decl_ptr>(),
+		new list<Func_ptr>(),
+		new list<Stat_ptr>());
+	}
+	;
+
+variabledec 
+	: Type VAR List 
+	;
+ 
+Statement :
+	LITERAL assignment | if | for
+	;
+
+if
+	: IF OPAREN  expression CPAREN OFUNC bodyofnested  CFUNC else
+	;
+
+else 	:
+	| ELSE OFUNC bodyofnested CFUNC
+	;
+
+for
+	: FOR OPAREN posstate OPAREN expression CPAREN posstate CPAREN OFUNC bodyofnested CFUNC
+	;
+
+posstate:
+	| Statement
+	;
+
+bodyofnested:
+	| Statement bodyofnested
+	;
+		
+assignment
+	: EQ dec SEMI
+	| OARRAY expression CARRAY EQ dec SEMI
+	;	
+
+dec
+	: Equation
+	| functioncall
+	;
+
+functioncall
+	:
+	| LITERAL OPAREN flist CPAREN 
+	;
+
+flist
+	:
+	| expression flist
+	| COMMA flist
+	;	
+
+return 
+	: RETURN expression SEMI
+	;
+
+
+Equation: expression 
+	;
+
+expression
+	: expression PLUS expression
+	{
+		$$ = $1 + $3;
+	}	
+	| expression ABS ABS expression
+	| expression AND expression
+	| expression GT expression
+	| expression GE expression
+	| expression LT expression
+	| expression LE expression
+	| expression NE expression
+	| expression DEQ expression
+	| expression MINUS expression 
+	{
+		$$ = $1 - $3;
+	}
+	| expression DIVIDE expression 
+	{
+		$$ = $1 / $3;
+	}
+	| expression MULT expression 
+	{
+		$$ = $1 * $3;
+	}
+	| OPAREN expression CPAREN 
+	| DECIMAL
+	{ 
+		$$ = $1; 
+	}
+	| LITERAL lit | TRUE | FALSE | HEX | OCT | BIN 
+	| MINUS expression | ZERO | NOT expression | ABS expression ABS 
+	;
+
+lit	: 
+	| OARRAY expression CARRAY
+	;
+	   
+%%
+
+/*You shouldn't have to do anything past this*/
+
+extern int yylineno;
+
+void yyerror(const char *s) {
+	fprintf(stderr, "%s at line %d\n", s, yylineno);
+	return;
+}

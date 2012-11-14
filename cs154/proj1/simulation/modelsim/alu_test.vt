@@ -1,0 +1,35 @@
+`timescale 10ps / 1ps
+/************************************************************************
+* Testbench to generate some stimulus and display the results for the
+* regfile module -- a register file with asynch reset.
+************************************************************************/
+//*********************************************************
+module alu_test;
+//*********************************************************
+//Inputs
+reg [7:0] read1;
+reg [7:0] read2;
+reg [2:0] control;
+
+//Outputs
+wire zero;
+wire [7:0] result;
+
+// Instantiate regfile (named DUT {device under test})
+alu DUT( read1, read2, control, result, zero);
+//This block generates a clock pulse with a 2 ns period
+
+//This initial block will provide values for the inputs
+// of the mux so that both inputs/outputs can be displayed
+initial begin
+//$timeformat(-9, 1, " ns", 6);
+#100;
+control = 3'b000;
+read1 = 8'b00000001;
+read2 = 8'b00000010;
+
+#100;
+ //initial
+// this block
+ end
+endmodule

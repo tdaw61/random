@@ -1,0 +1,15 @@
+X:/cs154/proj2/simulation/modelsim/proj2.vo {1 {vlog -work work -nocovercells X:/cs154/proj2/simulation/modelsim/proj2.vo
+Model Technology ModelSim ALTERA vlog 6.4a Compiler 2008.08 Oct 22 2008
+-- Compiling module proj2
+
+Top level modules:
+	proj2
+
+} {} {}} X:/cs154/proj2/simulation/modelsim/proj2.vt {1 {vlog -work work -nocovercells X:/cs154/proj2/simulation/modelsim/proj2.vt
+Model Technology ModelSim ALTERA vlog 6.4a Compiler 2008.08 Oct 22 2008
+-- Compiling module proj2_vlg_tst
+
+Top level modules:
+	proj2_vlg_tst
+
+} {} {}}

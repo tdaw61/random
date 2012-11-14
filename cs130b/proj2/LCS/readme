@@ -1,0 +1,3 @@
+This is the turnin for Taylor Daw Perm # 3402948
+
+I believe that everything is working as it should.  Running make should compile LCS.cpp and LCSall.cpp to lcs and lcs-all executables.

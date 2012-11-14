@@ -1,0 +1,21 @@
+integer function Main()
+{
+	integer var j, k, m, n; 
+	intarray[19] var x;
+	boolean var b;
+
+  boolean function foo( integer inc ) 
+  {
+    m = m + inc;
+		return true;
+  }
+
+	j = 2;
+	k = - j;
+	m = 100 - k * k;
+	x[1] = foo( 1 );
+	n = printint( m );
+	x[1] = 1;
+  return x[7+1];
+}
+

@@ -1,0 +1,451 @@
+%{
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <iostream>
+	#include "ast.hpp"
+	#include "primitive.hpp"
+	#include "symtab.hpp"
+	#define YYDEBUG 1
+	
+	extern Program_ptr ast;
+	int yylex(void);
+	void yyerror(const char *);
+%}
+
+%error-verbose
+
+%start ROOT
+
+%token COMMENT;
+%token EQ;
+%token DEQ;
+%token NE;
+%token LT;
+%token LE;
+%token GT;
+%token GE;
+%token PLUS;
+%token MINUS;
+%token DIVIDE;
+%token AND;
+%token OR;
+%token NOT;
+%token SEMI;
+%token COMMA;
+%token ABS;
+%token OFUNC;
+%token CFUNC;
+%token OPAREN;
+%token CPAREN;
+%token OARRAY;
+%token CARRAY;
+%token BOOLEAN;
+%token IF;
+%token ELSE;
+%token FOR;
+%token FUNCTION;
+%token INTARRAY;
+%token RETURN;
+%token TRUE;
+%token FALSE;
+%token INT;
+%token DECIMAL;
+%token HEX;
+%token OCT;
+%token BIN;
+%token ZERO;
+%token VAR;
+%token MULT;
+%token IDENT;
+%token END;
+
+/* WRITE ME: put all your type definitions here*/
+/* WRITE ME: put all your precedence/associativity rules here*/
+
+%%
+
+/* WRITE ME: This is the language from Project 1. You need
+			 to put the productions for the grammar for the
+			 language for this project here*/
+ROOT:	
+	| ROOT Program 
+	| END
+	{	
+		printf("success \n");
+		exit(0);
+	}
+	;
+
+Program : Functions 
+	{
+		ast = new ProgramImpl($1.u_func_list);
+	}
+	;
+
+Functions:
+	{$$.u_func_list = new list<Func_ptr>();}
+	| Functions Function
+	{
+		$$.u_func_list->push_back($2.u_func);
+		$$ = $1;
+	}
+	;
+
+Function: Returntype FUNCTION IDENT OPAREN Parameterlist CPAREN OFUNC bodyoffunction return CFUNC
+	{
+		
+		$$.u_func = new FuncImpl(
+			$1.u_type,
+			new SymName($3.u_base_charptr),
+			$5.u_decl_list,
+			$8.u_function_block);
+	}
+	;
+
+Returntype:
+        BOOLEAN {$$.u_type = new TBoolean();}
+        | INT   
+	{
+		$$.u_type = new TInteger();
+		printf("hey");
+	}
+	;
+
+Type:
+        INT {$$.u_type = new TInteger();} 
+        | BOOLEAN {$$.u_type = new TBoolean();}
+        | INTARRAY OARRAY integerLiteral CARRAY 
+        ;
+
+
+integerLiteral:
+	DECIMAL
+	{ $$.u_expr = new IntLit(new Primitive($1.u_base_int))};
+	;
+
+functionid:
+	IDENT { $$.u_symname = new SymName($1.u_base_charptr);}
+	;
+
+Parameterlist
+	: /* empty */ 
+	{
+		printf("empty");
+		$$.u_decl_list = new list<Decl_ptr>();
+	}
+	| Parameterlists
+	{
+		$$ = $1;
+	}
+	;
+
+Parameterlists: Parameterlists SEMI parameter
+	{
+		$$.u_decl_list->push_back($3.u_decl); 
+		$$ = $1;
+	}
+	| parameter
+	{
+		$$.u_decl_list = new list<Decl_ptr>();
+		$$.u_decl_list -> push_back($1.u_decl);
+	}
+	;
+
+parameter:
+	Returntype List
+	{
+		$$.u_decl = new DeclImpl($1.u_type, $2.u_symname_list);
+	}
+	;
+
+List	:
+	List COMMA IDENT
+	{
+		$$.u_symname_list -> push_back(new SymName($3.u_base_charptr));
+		$$ = $1;
+	}
+	| IDENT 
+	{
+		$$.u_symname_list = new list<SymName_ptr>();
+		$$.u_symname_list -> push_back(new SymName($1.u_base_charptr));
+	}
+	;
+
+bodyoffunction 	
+	:
+	var_decls func_decls stmts {
+	printf("what");
+	$$.u_function_block = new Function_blockImpl(
+		new list<Decl_ptr>(),
+		new list<Func_ptr>(),
+		new list<Stat_ptr>());
+	}
+	;
+
+stmts : stmts Statement
+	{
+	$$.u_stat_list -> push_back($2.u_stat); 
+	$$ = $1;
+	}
+	|
+	{
+		printf("ypu");
+		$$.u_stat_list = new list<Stat_ptr>();
+	}
+	;
+
+var_decls:
+	{
+		$$.u_decl_list = new list<Decl_ptr>();
+	}
+	| var_decls variabledec
+	{
+		printf("variable ");
+		$$.u_decl_list->push_back($2.u_decl);
+		$$ = $1;
+	} 
+	/*| variabledec
+	{
+		$$.u_decl_list->push_back($1.u_decl);
+		$$ = $1;
+	}*/
+	;
+
+variabledec :
+	Type VAR List SEMI
+	{
+		$$.u_decl = new DeclImpl($1.u_type, $3.u_symname_list);
+ 	}
+	;
+
+func_decls :
+	Functions
+	{
+		printf("woo");
+		$$ = $1;
+	}
+	;	
+
+Statement :
+	IDENT assignment 
+	{
+		$$.u_stat = new Assignment($1.u_symname, $2.u_expr);
+		$$ = $2;
+	}
+	| if 
+	{
+		$$ = $1;
+	}
+	| for
+	{
+		$$ = $1;
+	}
+	;
+
+if
+	: IF OPAREN  expression CPAREN OFUNC stmts  CFUNC else
+	;
+
+else 	:
+	| ELSE OFUNC stmts CFUNC
+	;
+
+for
+	: FOR OPAREN posstate OPAREN expression CPAREN posstate CPAREN OFUNC bodyofnested CFUNC
+	{
+		$$.u_stat = new ForLoop($3.u_stat, $5.u_expr, $7.u_stat, $10.u_nested_block);
+	}
+	;
+
+bodyofnested
+	:
+	{
+		$$.u_nested_block = new Nested_blockImpl(
+			new list<Stat_ptr>());
+	}
+	| stmts
+	{
+		$$.u_nested_block = new Nested_blockImpl(
+			$1.u_stat_list);
+
+	}
+			
+
+posstate:
+	{
+		$$.u_stat = new None();
+	}
+	| Statement
+	{
+		$$ = $1;
+	}
+	;
+	
+assignment
+	: EQ dec SEMI
+	{
+		$$ = $2;
+	}
+	| OARRAY expression CARRAY EQ dec SEMI
+	;	
+
+dec
+	: Equation
+	{
+		$$ = $1;
+	}
+	| functioncall
+	{
+		$$ = $1;
+	}
+	;
+
+functioncall
+	:
+	IDENT OPAREN flist CPAREN 
+	{
+		$$ = $3;
+	}
+	;
+
+flist
+	:
+	{
+		$$.u_expr_list = new list<Expr_ptr>();
+	}
+	| flist COMMA expression
+	{
+		$$.u_expr_list->push_back($2.u_expr);
+		$$ = $1;
+	}
+	| expression
+	{
+		$$.u_expr_list = new list<Expr_ptr>();
+		$$.u_expr_list->push_back($1.u_expr);
+		$$ = $1;
+	}
+	;	
+
+return 
+	: RETURN expression SEMI
+	{
+		printf("say what");
+		$$.u_stat = new Return($2.u_expr);
+	}	
+	;
+
+
+Equation: expression 
+	{
+		$$ = $1;
+	}
+	;
+
+expression
+	: expression PLUS expression
+	{
+		$$.u_expr = new Plus($1.u_expr, $3.u_expr);
+	}	
+	| expression ABS ABS expression
+	{
+		$$.u_expr = new Or($1.u_expr, $4.u_expr);
+	}
+	| expression AND expression
+        {
+                $$.u_expr = new And($1.u_expr, $3.u_expr);
+        }
+
+	| expression GT expression
+        {
+                $$.u_expr = new Gt($1.u_expr, $3.u_expr);
+        }
+
+	| expression GE expression
+        {
+                $$.u_expr = new Gteq($1.u_expr, $3.u_expr);
+        }
+
+	| expression LT expression
+        {
+                $$.u_expr = new Lt($1.u_expr, $3.u_expr);
+        }
+
+	| expression LE expression
+        {
+                $$.u_expr = new Lteq($1.u_expr, $3.u_expr);
+        }
+
+	| expression NE expression
+        {
+                $$.u_expr = new Noteq($1.u_expr, $3.u_expr);
+        }
+
+	| expression DEQ expression
+        {
+                $$.u_expr = new Compare($1.u_expr, $3.u_expr);
+        }
+
+	| expression MINUS expression 
+	{
+		$$.u_expr = new Minus($1.u_expr, $3.u_expr);
+	}
+	| expression DIVIDE expression 
+	{
+		$$.u_expr = new Div($1.u_expr, $3.u_expr);
+	}
+	| expression MULT expression 
+	{
+		$$.u_expr = new Times($1.u_expr, $3.u_expr);
+	}
+	| OPAREN expression CPAREN 
+	{
+		$$.u_expr = $2.u_expr;
+	}
+	| DECIMAL
+	{
+		printf("heyo"); 
+		$$.u_expr = new IntLit(new Primitive($1.u_base_int));
+	}
+	| IDENT  
+	{
+		$$.u_expr = new Ident(new SymName($1.u_base_charptr));
+		//$$.u_expr = $2.u_expr;
+	}
+	| TRUE
+		{$$.u_expr = new BoolLit(new Primitive(1));} 
+	| FALSE 
+		{$$.u_expr = new BoolLit(new Primitive(0));}
+	| HEX 
+	| OCT 
+	| BIN 
+	| MINUS expression  
+	{
+		$$.u_expr = new Uminus($2.u_expr);
+	}
+	| NOT expression 
+	{
+		$$.u_expr = new Not($2.u_expr);
+	}
+	| ABS expression ABS 
+	{
+		$$.u_expr = new Magnitude($2.u_expr);
+	}
+	;
+
+lit	: 
+	{
+		//$$.u_expr = new Ident(new SymName($1.u_base_charptr));
+	}
+	| OARRAY expression CARRAY
+	;
+	   
+%%
+
+/*You shouldn't have to do anything past this*/
+
+extern int yylineno;
+
+void yyerror(const char *s) {
+	fprintf(stderr, "%s at line %d\n", s, yylineno);
+	return;
+}

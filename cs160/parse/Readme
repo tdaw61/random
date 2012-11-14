@@ -1,0 +1,6 @@
+This is the turnin for Taylor Daw
+tdaw@umail.ucsb.edu
+
+The program seems to be functioning, but I am sure there are cases that I 
+may have overlooked and there are numerous shift/reduce errors for the 
+moment. I did not get rid of the dangling comments problem with EOF.  

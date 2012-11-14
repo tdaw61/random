@@ -1,0 +1,7 @@
+var s = unit, times = unit in
+output "What string should I double?";
+s := input str;
+output "How many times should I double it?";
+times := input num;
+while (0 <= times-1) { s := s + s; times := times - 1 };
+output s

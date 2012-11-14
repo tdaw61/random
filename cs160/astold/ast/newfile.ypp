@@ -1,0 +1,302 @@
+%{
+	#include <stdio.h>
+	#include <stdlib.h>
+
+    	#include "ast.hpp"
+    	#include "primitive.hpp"
+    	#include "symtab.hpp"
+
+	#define YYDEBUG 1
+
+    	extern Program_ptr ast;
+	int yylex(void);
+	void yyerror(const char *);
+%}
+
+%error-verbose
+
+
+%start ROOT
+
+%token COMMENT;
+%token EQ;
+%token DEQ;
+%token NE;
+%token LT;
+%token LE;
+%token GT;
+%token GE;
+%token PLUS;
+%token MINUS;
+%token DIVIDE;
+%token AND;
+%token OR;
+%token NOT;
+%token SEMI;
+%token COMMA;
+%token ABS;
+%token OFUNC;
+%token CFUNC;
+%token OPAREN;
+%token CPAREN;
+%token OARRAY;
+%token CARRAY;
+%token BOOLEAN;
+%token IF;
+%token ELSE;
+%token WHILE;
+%token FOR;
+%token FUNCTION;
+%token INTARRAY;
+%token RETURN;
+%token TRUE;
+%token FALSE;
+%token INT;
+%token DECIMAL;
+%token HEX;
+%token OCT;
+%token BIN;
+%token ZERO;
+%token VAR;
+%token MULT;
+%token LITERAL;
+%token END;
+%token NUM;
+%token IDENT;
+%token COLON;
+
+%left OR
+%left AND
+%nonassoc LT GT GE LE 
+%right EQ DEQ NE
+%left PLUS MINUS
+%left MULT DIVIDE
+
+%%
+
+			 
+ROOT:
+	| ROOT Program
+	{
+		printf("success");
+		exit(0);
+	}
+	;
+
+Program : Functions
+	{
+		ast = new Program($1.u_func_list);
+	}
+	;
+
+Functions: 
+	{$$.u_func_list = new list<Func_ptr>();}
+	| Functions Function
+	{
+		$1.u_func_list -> push_back($2.u_func);
+		$$ = $1;
+	}
+	;
+
+Function: FUNCTION LITERAL OPAREN Parameterlist CPAREN COLON Returntype OFUNC bodyoffunction CFUNC
+	{
+		$$.u_func = new FuncImpl(
+		$7.u_type,
+		new SymName($2.u_base_charptr),
+		$4.u_decl_list,
+		$9.u_function_block);
+	}
+	;
+
+Returntype:
+	BOOLEAN
+	{
+		$$.u_type = new TBoolean();
+	}
+	| INT
+	{
+		$$.u_type = new TInteger();
+	}
+	;
+
+Parameterlist: 
+	| List Returntype More 
+	;
+
+More	:
+	SEMI Parameterlist
+	|
+	;
+
+List   : LITERAL List
+	| COMMA List
+	| COLON
+	;
+
+bodyoffunction : variabledec Functions Statements ReturnStatement
+	;
+
+ReturnStatement
+	: RETURN expression SEMI
+	;
+
+variabledec :
+	| VAR List Type SEMI variabledec
+	;
+
+Type	:
+	  INT
+	| BOOLEAN
+	| INTARRAY OARRAY NUM CARRAY
+	;
+
+Statements:
+	| Statement Statements
+	;
+
+Statement :
+	LITERAL assignment | if | for | while
+
+if
+	: IF OPAREN  expression CPAREN OFUNC bodyofnested  CFUNC else
+	;
+
+else 	:
+	| ELSE OFUNC bodyofnested CFUNC
+	;
+
+for
+	: FOR OPAREN posstate OPAREN expression CPAREN posstate CPAREN OFUNC bodyofnested CFUNC
+	;
+
+posstate :
+	| Statement
+	;
+
+bodyofnested :
+	| Statement bodyofnested
+	;
+
+while  : WHILE OPAREN expression CPAREN OFUNC bodyofnested CFUNC
+	;
+
+assignment
+	: EQ expression SEMI
+	| OARRAY expression CARRAY EQ expression SEMI
+	;
+
+
+expression
+	: expression PLUS expression
+	{
+		$$.u_expr = new Plus($1.u_expr, $3.u_expr);
+	}	
+	| expression ABS ABS expression
+	{
+		$$.u_expr = new Or($1.u_expr, $4.u_expr);
+	}
+	| expression AND expression
+	{
+	       $$.u_expr = new And($1.u_expr, $3.u_expr);
+	}
+	| expression GT expression
+	{
+                $$.u_expr = new Gt($1.u_expr, $3.u_expr);
+	}
+	| expression GE expression
+	{
+                $$.u_expr = new Gteq($1.u_expr, $3.u_expr);
+	}
+	| expression LT expression
+	{
+                $$.u_expr = new Lt($1.u_expr, $3.u_expr);
+	}
+	| expression LE expression
+	{
+                $$.u_expr = new Lteq($1.u_expr, $3.u_expr);
+	}
+	| expression NE expression
+	{
+                $$.u_expr = new Noteq($1.u_expr, $3.u_expr);
+	}
+	| expression DEQ expression
+	{
+                $$.u_expr = new Compare($1.u_expr, $3.u_expr);
+	}
+	| expression MINUS expression 
+	{
+		$$.u_expr = new Minus($1.u_expr, $3.u_expr);
+	}
+	| expression DIVIDE expression 
+	{
+		$$.u_expr = new Div($1.u_expr, $3.u_expr);
+	}
+	| expression MULT expression 
+	{
+		$$.u_expr = new Times($1.u_expr, $3.u_expr);
+	}
+	| OPAREN expression CPAREN 
+	{
+		$$.u_expr = $2.u_expr;
+	}
+	| DECIMAL
+	{ 
+		$$.u_expr = new IntLit(new Primitive($1.u_base_int));
+	}
+	| Neg
+	| TRUE 
+	{
+		{$$.u_expr = new BoolLit(new Primitive(1));} 
+	}
+	| FALSE 
+	{
+		{$$.u_expr = new BoolLit(new Primitive(0));} 
+	}
+	| NOT expression 
+	{
+		$$.u_expr = new Not($2.u_expr);
+	}
+	| ABS expression ABS 
+	{
+		$$.u_expr = new Magnitude($2.u_expr);
+	}
+	;
+
+Neg	: Term
+	| MINUS Term %prec MULT
+	;
+
+Term	: HEX
+	| OCT
+	| BIN
+	| NUM
+	| ZERO 
+	| LITERAL dec
+	{
+		$$ = $1;
+	}
+	;
+
+dec	: OARRAY expression CARRAY
+	| OPAREN functioncall CPAREN
+	|
+	;
+
+functioncall
+	: 
+	| expression functioncall
+	| COMMA functioncall
+	;
+
+
+
+%%
+
+/*You shouldn't have to do anything past this*/
+
+extern int yylineno;
+
+void yyerror(const char *s) {
+	fprintf(stderr, "%s at line %d\n", s, yylineno);
+	exit(0);
+}

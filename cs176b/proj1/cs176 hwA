@@ -1,0 +1,293 @@
+
+1. ifconfig
+
+
+
+em1       Link encap:Ethernet  HWaddr 38:60:77:0E:41:FE  
+          inet addr:128.111.43.64  Bcast:128.111.43.255  Mask:255.255.255.0
+          inet6 addr: fe80::3a60:77ff:fe0e:41fe/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:204291 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:179200 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:177289964 (169.0 MiB)  TX bytes:203034617 (193.6 MiB)
+          Interrupt:20 Memory:f7200000-f7220000 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:32 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:32 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:2248 (2.1 KiB)  TX bytes:2248 (2.1 KiB)
+
+the first section describes the finrst interface.
+The link encapsulation is ethernet and the hardware address is listed, these can not be altered with ifconfig. the 2nd and 3rd lines have IP info, the second line displays some ipv4 info, the broadcast address, and the subnet mask, the 3rd line has ipv6 IP info. Line 4 displays the interface's current state and its flags, UP means device is functioning, Broadcast means it can send to all hosts, Multicast means device can get multicast packets, along with the MTU which is defaulted to 1500 bytes and the metric, the last lines are information from the ehternet driver.
+The second set of information lo is for the local network interface, and has similar information.
+
+
+B. arp
+
+[tdaw@booboo /sbin]$ ./arp -a
+frigga.cs.ucsb.edu (128.111.43.46) at 00:19:b9:e2:3a:d6 [ether] on em1
+csworld43.cs.ucsb.edu (128.111.43.1) at 00:d0:2b:fb:3d:00 [ether] on em1
+
+2.---attempts to add and delete to the table were unsuccessful.
+
+[tdaw@booboo /sbin]$ ./arp -d 128.111.43.46
+SIOCDARP(priv): Operation not permitted
+
+[tdaw@booboo /sbin]$ ./arp -i em1 -s 1.1.1.1 00:aa:00:62:c6:09
+SIOCSARP: Operation not permitted
+[tdaw@booboo /sbin]$ ./arp -s 1.1.1.1 00:aa:00:62:c6:09
+SIOCSARP: Operation not permitted
+
+2. I am assuming that these did not work due to privilege reasons, but neither the add or the delete worked for the table.
+
+3. to modify the table I will instead have to ping other users on the network to get their address so it can be stored in the table. They will then be removed upon timeout.
+
+[tdaw@booboo /sbin]$ ping -b 128.111.43.0
+WARNING: pinging broadcast address
+PING 128.111.43.0 (128.111.43.0) 56(84) bytes of data.
+64 bytes from 128.111.43.1: icmp_req=1 ttl=255 time=0.401 ms
+64 bytes from 128.111.43.3: icmp_req=1 ttl=64 time=10.9 ms (DUP!)
+
+--- 128.111.43.0 ping statistics ---
+7 packets transmitted, 7 received, +7 duplicates, 0% packet loss, time 6009ms
+rtt min/avg/max/mdev = 0.323/3.455/10.907/3.638 ms
+[tdaw@booboo /sbin]$ ./arp
+Address                  HWtype  HWaddress           Flags Mask            Iface
+frigga.cs.ucsb.edu       ether   00:19:b9:e2:3a:d6   C                     em1
+csworld43.cs.ucsb.edu    ether   00:d0:2b:fb:3d:00   C                     em1
+128.111.43.3             ether   00:08:83:e5:49:45   C                     em1
+
+[tdaw@booboo /sbin]$ ping 128.111.43.6
+PING 128.111.43.6 (128.111.43.6) 56(84) bytes of data.
+From 128.111.43.64 icmp_seq=2 Destination Host Unreachable
+From 128.111.43.64 icmp_seq=3 Destination Host Unreachable
+
+--- 128.111.43.6 ping statistics ---
+11 packets transmitted, 0 received, +6 errors, 100% packet loss, time 10000ms
+pipe 3
+[tdaw@booboo /sbin]$ ./arp
+Address                  HWtype  HWaddress           Flags Mask            Iface
+frigga.cs.ucsb.edu       ether   00:19:b9:e2:3a:d6   C                     em1
+128.111.43.6                     (incomplete)                              em1
+csworld43.cs.ucsb.edu    ether   00:d0:2b:fb:3d:00   C                     em1
+
+3. --Here I made a broadcast ping and another random ping to a host that was not even on the network, but the table was altered to store these addresses.
+
+4. The timeout value of the entries can be altered from the command line, but to figure out how to get the times with trial and error would be to ping different sites and then if the table is updated simply script a arp -a command until it is gone, it would be a very crude estimate though. 
+
+5. the ip neigh command shows essentially the same core info (IP and HWaddress), but it can also show the dead time and the state of the neighbor.
+
+6. If there are two IP addresses mapping to the same ethernet address, then once there is information that makes its way into the local network, the subnet will not be able to deal with the information and both devices will be disabled.
+
+C - traceroute
+
+1. traceroute is supposed to find the route from one host to another. It looks for traffic on routes and faster routes as well.  It sends probe packets of specified size out to the host, starting with a short time to live and then increasing until it gets the ICMP message back that resolves the trace.
+
+2. [tdaw@booboo /sbin]$ traceroute tourism.at.ru
+traceroute to tourism.at.ru (188.138.50.13), 30 hops max, 60 byte packets
+ 1  csworld43.cs.ucsb.edu (128.111.43.1)  0.455 ms  0.451 ms  0.519 ms
+ 2  556-NOC-556-c.noc.ucsb.edu (128.111.4.65)  0.500 ms  0.612 ms  0.739 ms
+ 3  574-c-v1071.noc.ucsb.edu (128.111.4.52)  0.568 ms  0.715 ms  0.857 ms
+ 4  r2--574-c--2.commserv.ucsb.edu (128.111.252.148)  0.689 ms  0.743 ms  0.816 ms
+ 5  r1--r2--1.commserv.ucsb.edu (128.111.252.168)  0.867 ms  0.957 ms  1.018 ms
+ 6  dc-lax-dc2--dc-ucsb.cenic.net (137.164.23.2)  3.572 ms  3.097 ms  3.157 ms
+ 7  dc-lax-core2--lax-agg1-ge.cenic.net (137.164.46.107)  4.587 ms  4.585 ms  4.786 ms
+ 8  dc-lax-isp2--lax-core2-10ge.cenic.net (137.164.47.138)  3.427 ms  3.506 ms  3.498 ms
+ 9  los-edge-01.inet.qwest.net (63.147.28.181)  3.951 ms  3.710 ms  3.707 ms
+10  los-core-01.inet.qwest.net (205.171.32.33)  3.679 ms  3.675 ms  3.666 ms
+11  sjp-brdr-03.inet.qwest.net (67.14.34.6)  9.401 ms  9.345 ms  9.436 ms
+12  217.243.219.93 (217.243.219.93)  13.042 ms  13.050 ms  13.140 ms
+13  217.239.40.222 (217.239.40.222)  164.195 ms  164.206 ms  163.869 ms
+14  194.25.211.54 (194.25.211.54)  170.058 ms  170.142 ms  170.009 ms
+15  217.118.16.26 (217.118.16.26)  172.695 ms  172.839 ms  172.831 ms
+16  static-ip-62-75-135-101.inaddr.ip-pool.com (62.75.135.101)  173.929 ms  173.582 ms static-ip-62-75-135-102.inaddr.ip-pool.com (62.75.135.102)  177.846 ms
+17  mail.j-vista.ru (188.138.50.13)  173.523 ms  173.598 ms  173.593 ms
+
+3. If we only ping something there is still the chance that the packets will never reach the destination, which may look like it doesn't exist. Other ICMP returns will also look as if the ping was not successful, but it does not ensure that the address is non-existent.
+4.
+5.
+6.
+
+D. Router Looking Glass
+1. The looking glass results display the total amount of destinations and routes that it could take to get to the destination. It then shows each incremental step along the way and it gives the address of the device its trying to reach and it gives the path indexes as well.
+
+2. Use ``http://alice.ja.net'' to perform a traceroute to 128.111.1.1. Include a copy of the output. 
+
+                Router: manc-sbr1.ja.net
+                Query:  (IPv4) traceroute host 128.111.1.1
+
+ 1  ae13.warr-sbr1.ja.net (146.97.33.153)  9.157 ms  0.815 ms  0.809 ms
+ 2  as3.read-sbr1.ja.net (146.97.33.89)  4.576 ms  4.585 ms  4.623 ms
+ 3  ae13.lond-sbr3.ja.net (146.97.33.146)  6.059 ms  6.089 ms  6.084 ms
+ 4  janet.rt1.lon.uk.geant.net (62.40.124.197)  10.597 ms  6.083 ms  6.090 ms
+ 5  as1.rt1.ams.nl.geant2.net (62.40.112.137)  14.248 ms  14.279 ms  14.247 ms
+ 6  so-2-0-0.rt1.fra.de.geant2.net (62.40.112.9)  21.123 ms  21.140 ms  21.143 ms
+ 7  abilene-wash-gw.rt1.fra.de.geant.net (62.40.125.18)  113.135 ms  135.044 ms  120.336 ms
+ 8  ae-8.10.rtr.atla.net.internet2.edu (64.57.28.6)  126.656 ms  126.589 ms  126.534 ms
+ 9  xe-1-0-0.0.rtr.hous.net.internet2.edu (64.57.28.112)  150.081 ms  157.506 ms  165.350 ms
+10  ge-6-1-0.0.rtr.losa.net.internet2.edu (64.57.28.96)  603.341 ms *  582.094 ms
+11  hpr-lax-hpr--i2-newnet.cenic.net (137.164.26.133)  186.907 ms  186.315 ms  185.921 ms
+12  ucsb--lax-hpr2-10ge.cenic.net (137.164.26.6)  192.373 ms  205.190 ms  188.670 ms
+13  r2--r1--1.commserv.ucsb.edu (128.111.252.169)  188.368 ms  199.773 ms  190.875 ms
+14  574-c--r2--2.commserv.ucsb.edu (128.111.252.149)  189.269 ms  188.778 ms  188.532 ms
+15  556-c-v1071.noc.ucsb.edu (128.111.4.53)  188.663 ms  188.815 ms  188.571 ms
+16  ns1.ucsb.edu (128.111.1.1)  188.432 ms  188.426 ms  188.518 ms
+
+E. Netstat
+
+1. Netstat is used to display active sockets for various protocols. It displays statistics about traffic and other information.
+
+
+2. What parameters for netstat should you use to show all the TCP connections established? Include a printout of this list for your machine. Be sure to explain what all fields are.
+
+[tdaw@booboo /]$ netstat -t -all
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address               Foreign Address             State      
+tcp        0      0 *:sunrpc                    *:*                         LISTEN      
+tcp        0      0 *:ssh                       *:*                         LISTEN      
+tcp        0      0 localhost:ipp               *:*                         LISTEN      
+tcp        0      0 *:54904                     *:*                         LISTEN      
+tcp        0      0 localhost:smtp              *:*                         LISTEN      
+tcp        0      0 *:54234                     *:*                         LISTEN      
+tcp        0      0 *:5666                      *:*                         LISTEN      
+tcp        1      0 booboo.cs.ucsb.edu:58060    fcds9017.lax.llnw.net:http  CLOSE_WAIT  
+tcp        1      0 booboo.cs.ucsb.edu:44698    fcds94.lax.llnw.net:http    CLOSE_WAIT  
+tcp        0      0 booboo.cs.ucsb.edu:727      frigga.cs.uc:fnet-remote-ui ESTABLISHED 
+tcp        0      0 booboo.cs.ucsb.edu:48583    frigga.cs.ucsb.edu:sunrpc   TIME_WAIT   
+tcp        0      0 booboo.cs.ucsb.edu:wpages   frigga.cs.ucsb.edu:nfs      ESTABLISHED 
+tcp        1      0 booboo.cs.ucsb.edu:58058    fcds9017.lax.llnw.net:http  CLOSE_WAIT  
+tcp        1      0 booboo.cs.ucsb.edu:44696    fcds94.lax.llnw.net:http    CLOSE_WAIT  
+tcp        0      0 *:44779                     *:*                         LISTEN      
+tcp        0      0 *:sunrpc                    *:*                         LISTEN      
+tcp        0      0 *:ssh                       *:*                         LISTEN      
+tcp        0      0 *:ipp                       *:*                         LISTEN      
+tcp        0      0 *:39422                     *:*                         LISTEN      
+tcp        0      0 booboo.cs.ucsb.edu:58919    calculon.engr.u:sun-as-jpda ESTABLISHED 
+
+As the man page for netstat describes:
+
+ proto is the protocol used for the socket, Recv-Q is the number of bytes not copied by the user program connected to this socket, send-q is the count of bytes not acknowledged by the remote host.
+Local address is the address and port number of the local side, foreign is the address and port of the other end. The state is the state the socket is currently in.
+
+running netstat -r shows the local routing table
+
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+default         csworld43.cs.uc 0.0.0.0         UG        0 0          0 em1
+128.111.43.0    *               255.255.255.0   U         0 0          0 em1
+link-local      *               255.255.0.0     U         0 0          0 em1
+
+the destination specifies the host that is the endpoint of a route.
+the gateway specifies what gateway is being used to forward packets.
+the genmask shows the mask that will be used for this hop
+the flags show that U means the route is up and G means the route is a gateway
+the interface being used is showed with em1
+window shows the size of the window to be used
+
+using the netstat -i command displays a table for interfaces, and when I run the command it returns two interfaces, em1 and lo.
+the loopback interface is used more for management and maintenence. It can be used to test software and performance, and can also be used for local communication.
+
+F. nslookup
+1.[tdaw@booboo /]$ nslookup bach.cs.depaul.edu
+Server:		128.111.41.10
+Address:	128.111.41.10#53
+
+Non-authoritative answer:
+bach.cs.depaul.edu	canonical name = bach.cti.depaul.edu.
+Name:	bach.cti.depaul.edu
+Address: 140.192.36.3
+
+2. the server is the local DNS server that the query is sent to at funnies.cs.ucsb.edu(128.111.41.10) it is being sent there because that is the closest cached DNS server that queries start at. 
+
+3.[tdaw@booboo /]$ nslookup
+> server 128.111.41.10
+Default server: 128.111.41.10
+Address: 128.111.41.10#53
+> set q=MX
+> hotmail.com
+Server:		128.111.41.10
+Address:	128.111.41.10#53
+
+Non-authoritative answer:
+hotmail.com	mail exchanger = 5 mx4.hotmail.com.
+hotmail.com	mail exchanger = 5 mx1.hotmail.com.
+hotmail.com	mail exchanger = 5 mx2.hotmail.com.
+hotmail.com	mail exchanger = 5 mx3.hotmail.com.
+
+Authoritative answers can be found from:
+hotmail.com	nameserver = ns1.msft.net.
+hotmail.com	nameserver = ns2.msft.net.
+hotmail.com	nameserver = ns3.msft.net.
+hotmail.com	nameserver = ns4.msft.net.
+hotmail.com	nameserver = ns5.msft.net.
+mx1.hotmail.com	internet address = 65.55.37.88
+mx1.hotmail.com	internet address = 65.55.37.104
+mx1.hotmail.com	internet address = 65.55.37.120
+mx1.hotmail.com	internet address = 65.55.92.136
+mx1.hotmail.com	internet address = 65.55.92.152
+mx1.hotmail.com	internet address = 65.55.92.168
+mx1.hotmail.com	internet address = 65.55.92.184
+mx1.hotmail.com	internet address = 65.54.188.72
+mx1.hotmail.com	internet address = 65.54.188.94
+mx1.hotmail.com	internet address = 65.54.188.110
+mx1.hotmail.com	internet address = 65.54.188.126
+mx1.hotmail.com	internet address = 65.55.37.72
+
+by changing the type to mx for mail exchange, I can then find the servers for hotmail and the local queries that were performed.
+
+G -- Whois
+
+1. Kevin Schmidt is the contact for the UCSB network.
+
+2. OrgName:        Georgia Institute of Technology
+OrgId:          GIT-Z
+Address:        258 Fourth St NW
+Address:        Rich Building
+City:           Atlanta
+StateProv:      GA
+PostalCode:     30332
+Country:        US
+
+3. OrgAbuseHandle: DUIST-ARIN
+OrgAbuseName:   DePaul University Information Security Team
+OrgAbusePhone:  +1-312-362-8200 
+OrgAbuseEmail:  abuse@depaul.edu
+OrgAbuseRef:    http://whois.arin.net/rest/poc/DUIST-ARIN
+
+
+4.
+I did an nslookup, set type to mx for mail exchange, then did a lookup on aol.com. After I got the mailserver IPs, I did a whois on those IP addresses. This is the information I was given, it was from a server in VA.
+
+OrgAbuseHandle: AOL382-ARIN
+OrgAbuseName:   Abuse
+OrgAbusePhone:  +1-703-265-4670 
+OrgAbuseEmail:  abuse@aol.net
+OrgAbuseRef:    http://whois.arin.net/rest/poc/AOL382-ARIN
+
+OrgTechHandle: AOL-NOC-ARIN
+OrgTechName:   America Online Inc
+OrgTechPhone:  +1-703-265-4462 
+OrgTechEmail:  domains@aol.net
+OrgTechRef:    http://whois.arin.net/rest/poc/AOL-NOC-ARIN
+
+OrgNOCHandle: AOL236-ARIN
+OrgNOCName:   NOC
+OrgNOCPhone:  +1-703-265-4670 
+OrgNOCEmail:  noc@aol.net
+OrgNOCRef:    http://whois.arin.net/rest/poc/AOL236-ARIN
+
+5. the two queries are searching for different IP addresses, so when the whois whitehouse.gov is executed it doesnt resolve to the same IP, and goes to a different whois server which is whois.nic.gov while the other server is whois.arin.net. The 198.137.241.40 comes from an nslookup on the mail servers for whitehouse.gov.
+
+6. Innovative logic owns that IP address.
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, Proj_1Activity!</string>
+    <string name="app_name">Proj_1</string>
+    <string name="clickme">Click Me!</string>
+    <string name="click_handler">clicker</string>
+    <string name="start_string">You have clicked 0 times</string>
+    <item type="integer" format="integer" name="count">0</item>
+
+</resources>

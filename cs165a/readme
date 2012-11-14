@@ -1,0 +1,20 @@
+Taylor Daw
+3402948
+Tdaw61@gmail.com
+Machine problem 1 Write up
+
+There are numerous errors in how my code finds the answer, and will most likely get the wrong answer. 
+What I attempted to do was as follows:
+I wanted to create helper functions initially to take the overall repetitiveness out of the program, since functions would be called repeatedly.  
+First off a struct was made for each node that was going to be recorded, next I made a copy function to create a new instance of the node.  Other helper nodes were used to keep track of the cost of the function, as well as manhattan distance function to calculate the distances for the squares.  Then a helper function was made for each of the movements: up, down, left, right.  These checked if the move could be made and then updated accordingly.
+Then using A* search, I would read in the user input, then perform the search iteratively.
+In the main, I initialize a start and a goal node that has the user input given and the goal node that is desired.  
+Once the initial states are set up, I push the start node into the open list, and proceed into the while loop. The while loop then looks at the open list and finds the best option to pursue based on the lowest total cost.  Using this node, it then attempts to move any direction it can: up, down, left, right.  If these are successful, it looks to see if there is a corresponding node on the closed list, if so, it ignores the node completely because it has already been assessed.  If it finds a matching open list state, it compares scores, and whichever has the lower traveled cost is chosen.  This ensures that to each state there is always the lowest traveled cost, which is important for the heuristic.  It continues to go through this process until either the open list runs out of states, meaning the goal can not be reached, the current state matches the goal state, meaning it has succeded, or time runs out.  
+Heuristic:
+The heuristic I used for this problem is the manhattan distance.  For each node, I calculated the manhattan distance of each square and added it up, giving a total cost.  This heuristic is best for square maps where four directions are possible (left, right, up, down).  The actual formula for the heuristic looks a little like h(n) = D * (abs(n.x-goal.x) + abs(n.y-goal.y)) (taken from online). This calculates the absolute distance between two points, and multiplies them by a weight D.  In our case, the D would be 1 because each square is equally weighted, so it is not needed.
+Challenges:
+Seeing as the program doesn't work, the challenges are very evident.  My problem seems to be more with reference pointers than anything else, I came upon many cases of seg faults and random memory leaks and could not weave my way through the mess I had made.  If I was to do it again I would have to be much more careful in the approach.  
+
+Weakness in method:
+The weakness in using A* search with manhattan is that it would not necessarily be the fastest search.  It would be very repetitive at times, because it would go into the same state multiple times but try to always resolve the shortest path.  If the Manhattan distance was to be given a higher weight, or if the traveled cost was to be eliminated, it could possibly find a faster solution but may take a slightly longer path.  
+

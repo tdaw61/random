@@ -1,0 +1,8 @@
+This is the turnin for Taylor Daw
+tdaw@umail.ucsb.edu  #3402948
+
+Finally had to do a total overhaul on how my expressions were parsed to get rid of shift/shift errors, but now the parser finally works.
+I believe that the entire typecheck works, except arrayAssignments gave me trouble.  If there is an assignment such as
+a[2] = b[3] it will actually not throw an error because i commented it out, but if the b[3] was an invalid value and not 
+an integer, it wouldnt catch it correctly.  Same with the constantfolding, I didn't get the arrayAssignment but I believe
+everything else works well.  

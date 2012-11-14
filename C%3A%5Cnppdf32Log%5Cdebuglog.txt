@@ -1,0 +1,147 @@
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_GetValue is called
+NPP_Initialize : called
+NPP_GetValue is called
+NPP_SetWindow : called for instance 9c5729a8
+Window from browser - 35651585
+NPP_SetWindow : called for instance 9c5729a8
+Window from browser - 35651585
+NPP_NewStream : called for instance 9c5729a8, stream 9c560f80, URL https://gauchospace.ucsb.edu/courses/file.php/3332/homework/CS176C_HW4.pdf, stream size 0, seekable 0
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 0, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 16384, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 32768, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 49152, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 65536, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 81920, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 98304, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 114688, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 131072, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 147456, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 163840, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 180224, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 196608, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 212992, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 229376, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 245760, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 262144, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 278528, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 294912, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 311296, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 327680, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 344064, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 360448, length = 16384, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_Write : called for instance 9c5729a8, stream 9c560f80, offset = 376832, length = 11782, streamlength = 388614
+Trying for window attributes
+Trying for query tree
+NPP_Write : will wait for NPP_StreamAsFile
+NPP_StreamAsFile : called for instance 9c5729a8 and stream 9c560f80, filename /tmp/plugtmp/plugin-CS176C_HW4.pdf
+NPP_DestroyStream : called for instance 9c5729a8 and stream 9c560f80
+NPP_SetWindow : called for instance 9c5729a8
+Window from browser - 35651585
+NPP_SetWindow : called for instance 9c5729a8
+Window from browser - 35651585
+NPP_Destroy : called for instance 9c5729a8
+NPP_Shutdown : called
+
+
+

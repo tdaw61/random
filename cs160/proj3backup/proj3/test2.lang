@@ -1,0 +1,13 @@
+function Main(): integer {
+	var j, k, m, n: integer;
+	
+	var b: boolean;
+
+	function foo(inc: integer): boolean {
+		
+		return true;
+	}
+
+	n = printint( true );
+	return true;
+}

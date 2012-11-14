@@ -1,0 +1,16 @@
+function Main() : integer
+{
+		if(3 > 2)
+		{ 
+			(%...statements...%)
+			i = 5; (% assuming i has been declared above %)
+		}
+
+		if(true && false || false)	{ j = 3; }
+		else		{ k = 4; }
+
+		while ((!false))	{ l = 2; }
+	return 0;
+}
+
+

@@ -1,0 +1,3 @@
+var a = 0, b = 0 in
+a := var b = 40, c = 2 in { b + c };
+output b + c

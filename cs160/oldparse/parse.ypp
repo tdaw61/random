@@ -1,0 +1,228 @@
+%{
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <iostream>
+	#define YYDEBUG 1
+
+	int yylex(void);
+	void yyerror(const char *);
+%}
+
+%error-verbose
+
+%start ROOT
+
+%token COMMENT;
+%token EQ;
+%token DEQ;
+%token NE;
+%token LT;
+%token LE;
+%token GT;
+%token GE;
+%token PLUS;
+%token MINUS;
+%token DIVIDE;
+%token AND;
+%token OR;
+%token NOT;
+%token SEMI;
+%token COMMA;
+%token ABS;
+%token OFUNC;
+%token CFUNC;
+%token OPAREN;
+%token CPAREN;
+%token OARRAY;
+%token CARRAY;
+%token BOOLEAN;
+%token IF;
+%token ELSE;
+%token FOR;
+%token FUNCTION;
+%token INTARRAY;
+%token RETURN;
+%token TRUE;
+%token FALSE;
+%token INT;
+%token DECIMAL;
+%token HEX;
+%token OCT;
+%token BIN;
+%token ZERO;
+%token VAR;
+%token MULT;
+%token LITERAL;
+%token END;
+
+/* WRITE ME: put all your type definitions here*/
+/* WRITE ME: put all your precedence/associativity rules here*/
+
+%%
+
+/* WRITE ME: This is the language from Project 1. You need
+			 to put the productions for the grammar for the
+			 language for this project here*/
+ROOT:	
+	| ROOT Program 
+	;
+
+Program : Functions 
+	| END
+	{
+		printf("success!! \n");
+		exit(0);
+	}
+	;
+
+Functions:
+	| Functions Function
+	;
+
+Function: Returntype FUNCTION functionid OPAREN Parameterlist CPAREN OFUNC bodyoffunction return CFUNC
+	;
+
+Returntype:
+        INT
+        | BOOLEAN
+	;
+
+Type:
+        INT
+        | BOOLEAN
+        | INTARRAY OARRAY integerLiteral CARRAY
+        ;
+
+
+integerLiteral:
+	DECIMAL
+	;
+
+functionid:
+	LITERAL
+	;
+
+Parameterlist
+	: /* empty */ 
+	| Parameterlist Returntype List
+	;
+
+List	: LITERAL List
+	| COMMA List
+	| SEMI
+	|
+	;
+
+bodyoffunction 	
+	:
+	bodyoffunction variabledec
+	| bodyoffunction Statement
+	| bodyoffunction Function
+	|
+	;
+
+variabledec 
+	: Type VAR List 
+	;
+ 
+Statement :
+	LITERAL assignment | if | for
+	;
+
+if
+	: IF OPAREN  expression CPAREN OFUNC bodyofnested  CFUNC else
+	;
+
+else 	:
+	| ELSE OFUNC bodyofnested CFUNC
+	;
+
+for
+	: FOR OPAREN posstate OPAREN expression CPAREN posstate CPAREN OFUNC bodyofnested CFUNC
+	;
+
+posstate:
+	| Statement
+	;
+
+bodyofnested:
+	| Statement bodyofnested
+	;
+		
+assignment
+	: EQ dec SEMI
+	| OARRAY expression CARRAY EQ dec SEMI
+	;	
+
+dec
+	: Equation
+	| functioncall
+	;
+
+functioncall
+	:
+	LITERAL OPAREN flist CPAREN 
+	;
+
+flist
+	:
+	| expression flist
+	| COMMA flist
+	;	
+
+return 
+	: RETURN expression SEMI
+	;
+
+
+Equation: expression 
+	;
+
+expression
+	: expression PLUS expression
+	{
+		$$ = $1 + $3;
+	}	
+	| expression ABS ABS expression
+	| expression AND expression
+	| expression GT expression
+	| expression GE expression
+	| expression LT expression
+	| expression LE expression
+	| expression NE expression
+	| expression DEQ expression
+	| expression MINUS expression 
+	{
+		$$ = $1 - $3;
+	}
+	| expression DIVIDE expression 
+	{
+		$$ = $1 / $3;
+	}
+	| expression MULT expression 
+	{
+		$$ = $1 * $3;
+	}
+	| OPAREN expression CPAREN 
+	| DECIMAL
+	{ 
+		$$ = $1; 
+	}
+	| LITERAL lit | TRUE | FALSE | HEX | OCT | BIN 
+	| MINUS expression | ZERO | NOT expression | ABS expression ABS 
+	;
+
+lit	: 
+	| OARRAY expression CARRAY
+	;
+	   
+%%
+
+/*You shouldn't have to do anything past this*/
+
+extern int yylineno;
+
+void yyerror(const char *s) {
+	fprintf(stderr, "%s at line %d\n", s, yylineno);
+	return;
+}

@@ -1,0 +1,83 @@
+vsim +pulse_e/0 +pulse_r/0 -L altera_mf_ver -L stratixii_ver -L lpm_ver -sdfnoerror -sdfnowarn work.Project1_vlg_tst
+# vsim +pulse_e/0 +pulse_r/0 -L altera_mf_ver -L stratixii_ver -L lpm_ver -sdfnoerror -sdfnowarn work.Project1_vlg_tst 
+# Loading work.Project1_vlg_tst
+# Loading work.Project1
+# Loading stratixii_ver.stratixii_lcell_ff
+# Loading stratixii_ver.stratixii_ram_block
+# Loading stratixii_ver.stratixii_ram_register
+# Loading stratixii_ver.stratixii_ram_pulse_generator
+# Loading stratixii_ver.stratixii_lcell_comb
+# Loading stratixii_ver.stratixii_io
+# Loading stratixii_ver.stratixii_io_register
+# Loading stratixii_ver.stratixii_io_latch
+# Loading stratixii_ver.stratixii_and1
+# Loading stratixii_ver.stratixii_mux21
+# Loading stratixii_ver.stratixii_asynch_io
+# Loading stratixii_ver.stratixii_clkctrl
+# Loading stratixii_ver.stratixii_mux41
+# Loading stratixii_ver.stratixii_ena_reg
+# Loading instances from Project1_v.sdo
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: wnelson  Hostname: 556ECI13  ProcessID: 3588
+#           Attempting to use alternate WLF file "./wlftx87mq7".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftx87mq7
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftx87mq7
+# X:/cs154/simulation/modelsim/Project1.vt(86): [PCDPC] - Port size (3 or 3) does not match connection size (1) for port 'aluop'.
+#         Region: /Project1_vlg_tst/i1
+# Loading timing data from Project1_v.sdo
+# ** Note: (vsim-3587) SDF Backannotation Successfully Completed.
+#    Time: 0 ps  Iteration: 0  Region: /Project1_vlg_tst  File: X:/cs154/simulation/modelsim/Project1.vt
+add wave \
+{sim:/Project1_vlg_tst/clock } \
+{sim:/Project1_vlg_tst/Addr } \
+{sim:/Project1_vlg_tst/q } \
+{sim:/Project1_vlg_tst/regwr } 
+run
+# Running testbench
+run
+run
+run
+view wave
+# .main_pane.mdi.interior.cs.vm.paneset.cli_2.wf.clip.cs.pw.wf
+add wave \
+{sim:/Project1_vlg_tst/clock } \
+{sim:/Project1_vlg_tst/Addr } \
+{sim:/Project1_vlg_tst/q } \
+{sim:/Project1_vlg_tst/regwr } 
+quit -sim
+vsim +pulse_e/0 +pulse_r/0 -L altera_mf_ver -L stratixii_ver -L lpm_ver -sdfnoerror -sdfnowarn work.Project1_vlg_tst
+# vsim +pulse_e/0 +pulse_r/0 -L altera_mf_ver -L stratixii_ver -L lpm_ver -sdfnoerror -sdfnowarn work.Project1_vlg_tst 
+# Loading work.Project1_vlg_tst
+# Loading work.Project1
+# Loading stratixii_ver.stratixii_lcell_ff
+# Loading stratixii_ver.stratixii_ram_block
+# Loading stratixii_ver.stratixii_ram_register
+# Loading stratixii_ver.stratixii_ram_pulse_generator
+# Loading stratixii_ver.stratixii_lcell_comb
+# Loading stratixii_ver.stratixii_io
+# Loading stratixii_ver.stratixii_io_register
+# Loading stratixii_ver.stratixii_io_latch
+# Loading stratixii_ver.stratixii_and1
+# Loading stratixii_ver.stratixii_mux21
+# Loading stratixii_ver.stratixii_asynch_io
+# Loading stratixii_ver.stratixii_clkctrl
+# Loading stratixii_ver.stratixii_mux41
+# Loading stratixii_ver.stratixii_ena_reg
+# Loading instances from Project1_v.sdo
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: wnelson  Hostname: 556ECI13  ProcessID: 3588
+#           Attempting to use alternate WLF file "./wlftny4nyt".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftny4nyt
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftny4nyt
+# X:/cs154/simulation/modelsim/Project1.vt(86): [PCDPC] - Port size (3 or 3) does not match connection size (1) for port 'aluop'.
+#         Region: /Project1_vlg_tst/i1
+# Loading timing data from Project1_v.sdo
+# ** Note: (vsim-3587) SDF Backannotation Successfully Completed.
+#    Time: 0 ps  Iteration: 0  Region: /Project1_vlg_tst  File: X:/cs154/simulation/modelsim/Project1.vt
+add wave sim:/Project1_vlg_tst/*
+run
+# Running testbench
